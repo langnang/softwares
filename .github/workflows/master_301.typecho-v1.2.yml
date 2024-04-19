@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  webstack-deploy:
+  typecho-deploy:
     name: 🎉 Deploy to typecho.22web.org
     runs-on: ubuntu-latest
     steps:
