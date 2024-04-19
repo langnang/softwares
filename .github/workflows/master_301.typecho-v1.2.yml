@@ -1,0 +1,79 @@
+name: 🚀 Deploy master(typecho-v1.2) on push with FTP
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  webstack-deploy:
+    name: 🎉 Deploy to typecho.22web.org
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v2
+
+      # - name: Install node dependencies
+      #   run: yarn install
+
+      # - name: Laravel mix
+      #   run: npm run prod
+
+      # - name: Install composer dependencies
+      # run: composer install
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          # ftp server
+          server: ftpupload.net
+          # ftp username
+          username: b7_34048879
+          # ftp password
+          password: ${{ secrets.ftp_password }}
+          # local dir
+          local-dir: ./301.typecho-v1.2/
+          # Path to upload to on the server. Must end with trailing slash /
+          server-dir: /typecho.22web.org/htdocs/
+          # File to Exclude
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github*/**
+            **/node_modules/**
+
+  webstack-deploy:
+    name: 🎉 Deploy to webstack.22web.org
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v2
+
+      # - name: Install node dependencies
+      #   run: yarn install
+
+      # - name: Laravel mix
+      #   run: npm run prod
+
+      # - name: Install composer dependencies
+      # run: composer install
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          # ftp server
+          server: ftpupload.net
+          # ftp username
+          username: b32_28202196
+          # ftp password
+          password: ${{ secrets.ftp_password }}
+          # local dir
+          local-dir: ./301.typecho-v1.2/
+          # Path to upload to on the server. Must end with trailing slash /
+          server-dir: /webstack.22web.org/htdocs/
+          # File to Exclude
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github*/**
+            **/node_modules/**
