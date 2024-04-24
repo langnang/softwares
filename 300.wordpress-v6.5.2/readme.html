@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>WordPress &#8250; 自述文件</title>
+	<link rel="stylesheet" href="wp-admin/css/install.css?ver=20100228" type="text/css" />
+</head>
+<body>
+<h1 id="logo">
+	<a href="https://wordpress.org/"><img alt="WordPress" src="wp-admin/images/wordpress-logo.png" /></a>
+</h1>
+<p style="text-align: center">语义化个人发布平台</p>
+
+<h2>写在最前</h2>
+<p>欢迎。WordPress 对我来说是一个非常特别的项目。每一位开发者和贡献者都为这个项目增添了独特的元素，我们共同创造出我为之骄傲的美丽作品。我们已经投入了数千小时到 WordPress 中，并且我们致力于让它每天都变得更好。感谢您让它成为您世界的一部分。</p>
+<p style="text-align: right">&#8212; Matt Mullenweg</p>
+
+<h2>安装：著名的五分钟安装</h2>
+<ol>
+	<li>在一个空目录中解压包并上传所有内容。</li>
+	<li>在您的浏览器中打开 <span class="file"><a href="wp-admin/install.php">wp-admin/install.php</a></span>。它将引导您完成设置一个包含数据库连接详情的 <code>wp-config.php</code> 文件的过程。
+		<ol>
+			<li>如果由于某种原因这不起作用，不用担心。它可能不适用于所有的网络主机。使用像记事本或类似的文本编辑器打开 <code>wp-config-sample.php</code> 并填写您的数据库连接信息。</li>
+			<li>将文件另存为 <code>wp-config.php</code> 并上传。</li>
+			<li>在您的浏览器中打开 <span class="file"><a href="wp-admin/install.php">wp-admin/install.php</a></span>。</li>
+		</ol>
+	</li>
+	<li>一旦配置文件设置完成，安装程序将设置您的站点所需的表。如果出现错误，请仔细检查您的 <code>wp-config.php</code> 文件，并再试一次。如果再次失败，请带着尽可能多的信息前往 <a href="https://cn.wordpress.org/support/forums/">WordPress 支持论坛</a>。</li>
+	<li><strong>如果您没有输入密码，请牢记生成的随机密码。</strong> 如果您没有提供用户名，它将是 <code>admin</code>。</li>
+	<li>随后安装程序会带您到 <a href="wp-login.php">登录页面</a>。使用您在安装过程中设置的用户名和密码登录。如果 WordPress 为您生成了密码，您可以点击「个人资料」来更改密码。</li>
+	<li>（可选）我们为简体中文版提供了一些本地化特性，您可以通过文章 <a href="https://cn.wordpress.org/support/i10n-features/">简体中文的本地化特性</a> 了解它们。</li>
+</ol>
+
+<h2>更新</h2>
+<h3>使用自动更新器</h3>
+<ol>
+	<li>在您的浏览器中打开 <span class="file"><a href="wp-admin/update-core.php">wp-admin/update-core.php</a></span> 并遵循指示。</li>
+	<li>您想要更多，也许？就是这样！</li>
+</ol>
+
+<h3>手动更新</h3>
+<ol>
+	<li>在您更新任何东西之前，确保您有任何您可能修改过的文件的备份副本，如 <code>index.php</code>。</li>
+	<li>删除您的旧 WordPress 文件，保存您修改过的文件。</li>
+	<li>上传新文件。</li>
+	<li>在您的浏览器打开 <span class="file"><a href="wp-admin/upgrade.php">/wp-admin/upgrade.php</a>。</span></li>
+</ol>
+
+<h2>从其他系统迁移</h2>
+<p>WordPress 可以 <a href="https://wordpress.org/documentation/article/importing-content/">从许多系统导入</a>。首先您需要按照上述描述安装并运行 WordPress，然后使用 <a href="wp-admin/import.php">我们的导入工具</a>。</p>
+
+<h2>系统要求</h2>
+<ul>
+	<li><a href="https://secure.php.net/">PHP</a> 版本 <strong>7.0</strong> 或更高。</li>
+	<li><a href="https://www.mysql.com/">MySQL</a> 版本 <strong>5.5.5</strong> 或更高。</li>
+</ul>
+
+<h3>推荐</h3>
+<ul>
+	<li><a href="https://secure.php.net/">PHP</a> 版本 <strong>7.4</strong> 或更高。</li>
+	<li><a href="https://www.mysql.com/">MySQL</a> 版本 <strong>8.0</strong> 或更高 或 <a href="https://mariadb.org/">MariaDB</a> 版本 <strong>10.4</strong> 或更高。</li>
+	<li><a href="https://httpd.apache.org/docs/2.2/mod/mod_rewrite.html">mod_rewrite</a> Apache 模块。</li>
+	<li><a href="https://wordpress.org/news/2016/12/moving-toward-ssl/">HTTPS</a> 支持。</li>
+	<li>在您的站点上放置一个指向 <a href="https://cn.wordpress.org/">cn.wordpress.org</a> 或 <a href="https://wordpress.org/">wordpress.org</a> 的链接。</li>
+</ul>
+
+<h2>在线资源</h2>
+<p>如果您有任何未在本文档中解决的问题，请利用 WordPress 的众多在线资源：</p>
+<dl>
+	<dt><a href="https://cn.wordpress.org/documentation/">HelpHub</a></dt>
+	<dd>HelpHub 是 WordPress 所有事物的百科全书。它是可用的最全面的 WordPress 信息源。</dd>
+	<dt><a href="https://cn.wordpress.org/news/">WordPress 新闻</a></dt>
+	<dd>这里您可以发现与 WordPress 相关的最新更新和新闻。最近的 WordPress 新闻默认会出现在您的管理仪表板中。</dd>
+	<dt><a href="https://planet.wordpress.org/">WordPress Planet</a></dt>
+	<dd>WordPress Planet 是一个新闻聚合器，汇集了来自网络上 WordPress 博客的帖子。</dd>
+	<dt><a href="https://cn.wordpress.org/support/forums/">WordPress 支持论坛</a></dt>
+	<dd>如果您到处都找不到答案，支持论坛非常活跃并且拥有一个大型的社区准备帮助。为了帮助他们帮助您，请确保使用描述性的线索标题并尽可能详细地描述您的问题。</dd>
+	<dt><a href="https://make.wordpress.org/support/handbook/appendix/other-support-locations/introduction-to-irc/">WordPress <abbr>IRC</abbr>（互联网中继聊天）频道</a></dt>
+	<dd>这是一个在线聊天频道，用于 WordPress 用户之间的讨论，偶尔也会讨论支持主题。上面的 wiki 页面应该会指引您正确的方向。（<a href="https://web.libera.chat/#wordpress">irc.libera.chat #wordpress</a>）</dd>
+</dl>
+
+<h2>最后的注意事项</h2>
+<ul>
+	<li>如果您有任何建议、想法或评论，或者如果您发现了一个 bug（泰酷啦！），可以在 <a href="https://cn.wordpress.org/support/forums/">支持论坛</a> 与我们交流。</li>
+	<li>WordPress 有一个强大的插件 <abbr>API</abbr>（应用程序接口），使得扩展代码变得简单。如果您是一个对此感兴趣的开发者，请查看 <a href="https://developer.wordpress.org/plugins/">插件开发手册</a>。您不应该修改任何核心代码。</li>
+</ul>
+
+<h2>分享爱</h2>
+<p>WordPress 没有数百万美元的营销活动或名人赞助，但我们有更好的东西 &#8212; 您。如果您喜欢 WordPress，请将它介绍给自己的朋友，帮助不了解的人安装它，又或者写一篇赞扬我们的文章。</p>
+
+<p>WordPress 是 <a href="https://cafelog.com/">b2/caf&#233;log</a> 的官方继续，来自 Michel V. 的工作被 <a href="https://wordpress.org/about/">WordPress 开发者</a> 继续。如果您想支持 WordPress，请考虑 <a href="https://wordpress.org/donate/">捐赠</a>。</p>
+
+<h2>许可证</h2>
+<p>WordPress 是免费软件，并且根据 <abbr>GPL</abbr>（GNU 通用公共许可证）第 2 版或任何后续版本（根据您的选择）的条款发布。见 <a href="license.txt">license.txt</a>。</p>
+
+</body>
+</html>
