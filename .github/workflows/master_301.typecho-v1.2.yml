@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+    paths:
+      - "301.typecho-v1.2/**"
 
 jobs:
   typecho-deploy:
