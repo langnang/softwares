@@ -9,11 +9,8 @@ title: 软件（Softwares）
 - typecho v1.2
   - typecho
 - oneindex
-- Laravel
-  - Laravel 10.x
-  - Laravel 9.x
-  - Laravel 8.x
-- lumen
+- [Laravel](./laravel/)
+- [lumen](./lumen/)
 - 魔众（tecmz）
   - 魔众知识付费系统（mzedu）: 提供知识付费/在线培训解决方案
   - 魔众题库系统（tiku）: 融合在线题库和在线考试
