@@ -1,9 +1,0 @@
-.vscode/
-.idea/
-.temp/
-vendor/
-node_modules/
-composer.lock
-package.lock
-
-config.inc.php
