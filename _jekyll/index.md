@@ -4,10 +4,16 @@ title: 软件（Softwares）
 > 软件（Software），在此指代部署于个人终端或企业服务器上，允许用户通过网络协议和第三方软件（一般指浏览器）访问的网站页面
 
 - Grafana
-- onemanager
-- wordpress
-- typecho
-- oneindex
+- PyOne
+- OneList
+- CuteOne
+- ShareList
+- OLAINDEX
+- FODI
+-
+
+## Composer
+
 - 魔众（tecmz）
   - 魔众知识付费系统（mzedu）: 提供知识付费/在线培训解决方案
   - 魔众题库系统（tiku）: 融合在线题库和在线考试
@@ -53,3 +59,18 @@ title: 软件（Softwares）
   - 魔众智能AI系统（aigc）: AI对话、AI创作、AI绘画
   - 魔众资源管理系统（mzres）: 提供快速资源变现的在线系统
   - 魔众资源导航系统（links）: 快速构建一个在线资源导航系
+
+## PHP
+
+- typecho
+- OneManager
+- wordpress
+- OneIndex
+- OlaIndex
+- phpMyAdmin
+- Adminer
+- MyWebSQL
+- phpMiniAdmin
+- SQL Buddy
+- Alist
+- CuteOneP
