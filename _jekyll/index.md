@@ -5,9 +5,8 @@ title: 软件（Softwares）
 
 - Grafana
 - onemanager
-- wordpress v6.5
-- typecho v1.2
-  - typecho
+- wordpress
+- typecho
 - oneindex
 - 魔众（tecmz）
   - 魔众知识付费系统（mzedu）: 提供知识付费/在线培训解决方案
