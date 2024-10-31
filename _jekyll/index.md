@@ -14,6 +14,8 @@ title: 软件（Softwares）
 
 ## Composer
 
+- CuteOneP
+  - [Hackxiaoya/CuteOneP](https://github.com/Hackxiaoya/CuteOneP): CuteOne的PHP版本，onedrive挂载程序；
 - 魔众（tecmz）
   - 魔众知识付费系统（mzedu）: 提供知识付费/在线培训解决方案
   - 魔众题库系统（tiku）: 融合在线题库和在线考试
@@ -73,4 +75,9 @@ title: 软件（Softwares）
 - phpMiniAdmin
 - SQL Buddy
 - Alist
-- CuteOneP
+- typecho-webstack
+  - [wclk/WebStack_ZMKI](https://github.com/wclk/WebStack_ZMKI)
+  - [gogobody/WebStack](https://github.com/gogobody/WebStack)
+  - [LightAPIs/WebStackTypechoTheme](https://github.com/LightAPIs/WebStackTypechoTheme)
+  - [hygd0813/WebStack](https://github.com/hygd0813/WebStack)
+  - [xinac721/WebStack-xinac](https://github.com/xinac721/WebStack-xinac)
