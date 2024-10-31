@@ -69,7 +69,14 @@ title: 软件（Softwares）
 - typecho
 - OneManager
 - wordpress
-- OneIndex
+- oneindex
+  - [](https://github.com/qupb/oneindex): Onedrive Directory Index
+  - [](https://github.com/nov23e/Oneindex):
+  - [](https://github.com/avedu/oneindex):
+  - [](https://github.com/Layne666/oneindex):
+  - [](https://github.com/Mintimate/OneindexM):
+  - [](https://github.com/xieqifei/OneindexN):
+  - [](https://github.com/SomeBottle/OneIndex):
 - OlaIndex
 - adminer
   - https://www.adminer.org/
