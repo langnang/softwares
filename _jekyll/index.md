@@ -61,6 +61,8 @@ title: 软件（Softwares）
   - 魔众智能AI系统（aigc）: AI对话、AI创作、AI绘画
   - 魔众资源管理系统（mzres）: 提供快速资源变现的在线系统
   - 魔众资源导航系统（links）: 快速构建一个在线资源导航系
+- phpmyadmin
+  - [phpmyadmin/phpmyadmin](https://github.com/phpmyadmin/phpmyadmin)
 
 ## PHP
 
@@ -69,8 +71,9 @@ title: 软件（Softwares）
 - wordpress
 - OneIndex
 - OlaIndex
-- phpMyAdmin
-- Adminer
+- adminer
+  - https://www.adminer.org/
+  - [vrana/adminer](https://github.com/vrana/adminer)
 - MyWebSQL
 - phpMiniAdmin
 - SQL Buddy
