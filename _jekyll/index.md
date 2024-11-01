@@ -86,7 +86,7 @@ title: 软件（Softwares）
 - SQL Buddy
 - Alist
 - typecho-webstack
-  - [wclk/WebStack_ZMKI](https://github.com/wclk/WebStack_ZMKI)
+  - [wclk/WebStack_ZMKI](https://github.com/wclk/WebStack_ZMKI): typecho-1.1
   - [gogobody/WebStack](https://github.com/gogobody/WebStack)
   - [LightAPIs/WebStackTypechoTheme](https://github.com/LightAPIs/WebStackTypechoTheme)
   - [hygd0813/WebStack](https://github.com/hygd0813/WebStack)
