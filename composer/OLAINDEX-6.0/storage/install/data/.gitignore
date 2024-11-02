@@ -1,0 +1,5 @@
+*.sqlite
+*.sqlite.bak
+*.bak
+!*.sample.sqlite
+

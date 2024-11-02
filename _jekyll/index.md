@@ -7,8 +7,11 @@ title: 软件（Softwares）
 - PyOne
 - OneList
 - CuteOne
+  - https://github.com/Hackxiaoya/CuteOne
 - ShareList
 - OLAINDEX
+  - https://github.com/WangNingkai/OLAINDEX
+  - https://github.com/YukiCoco/OLAINDEX-Magic
 - FODI
 - impleo
 
@@ -82,8 +85,11 @@ title: 软件（Softwares）
   - https://www.adminer.org/
   - [vrana/adminer](https://github.com/vrana/adminer)
 - MyWebSQL
+  - https://github.com/Samnan/MyWebSQL
 - phpMiniAdmin
 - SQL Buddy
+  - https://github.com/deliciousbrains/sqlbuddy
+  - https://github.com/Frecuencio/sqlbuddy-php7
 - Alist
 - typecho-webstack
   - [wclk/WebStack_ZMKI](https://github.com/wclk/WebStack_ZMKI): typecho-1.1
@@ -91,3 +97,5 @@ title: 软件（Softwares）
   - [LightAPIs/WebStackTypechoTheme](https://github.com/LightAPIs/WebStackTypechoTheme)
   - [hygd0813/WebStack](https://github.com/hygd0813/WebStack)
   - [xinac721/WebStack-xinac](https://github.com/xinac721/WebStack-xinac)
+
+## PyPI

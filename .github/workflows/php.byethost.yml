@@ -48,4 +48,6 @@ jobs:
             **/.git*/**
             **/.github*/**
             **/node_modules/**
+            **/sqlbuddy-1.3.3/**
+            **/typecho-0.9.13.12.12.-release/**
             **/typecho11-webstack/**
