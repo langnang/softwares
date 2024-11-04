@@ -1,0 +1,242 @@
+.content-body{
+    margin-top:2em;
+    margin-left:2em;
+    
+    margin-right: 2em;
+}
+.login-logo{
+    max-width: 400px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:5em;
+}
+.login-logo h1{
+    color:#FFFFFF;
+    text-align: center;
+}
+.analyze{
+    background-color:#009688;
+    text-align:center;
+    color:#FFFFFF;
+}
+.analyze h3{
+    line-height: 2.4em;
+}
+.analyze p{
+    line-height: 2em;
+}
+.analyze a{
+    color:#FFFFFF;
+}
+
+.item{
+	/*height:8em;*/
+	/* background-color: #F0F0F0; */
+    /*border:1px solid #e2e2e2;*/
+    border-radius: 2px;
+    background-color: #009688;
+    color:#FFFFFF;
+    text-align:center;
+    margin-bottom:1em;
+    line-height:3em;
+    
+}
+.item a{
+	color:#F2F2F2;
+}
+.item:hover{
+	-webkit-box-shadow: 2px 2px 8px 1px rgba(20, 20, 20, 0.15); -moz-box-shadow: 2px 2px 8px 1px rgba(20, 20, 20, 0.15);box-shadow: 2px 2px 8px 1px rgba(20, 20, 20, 0.15);
+}
+.item i{
+    font-size: 1em;
+}
+/* msg弹窗提醒 */
+.msg{
+    width:auto;
+    line-height: 16px;
+    position: fixed;
+    top:2em;
+    border: 1px #009933 solid;
+    border-radius: 3px;
+    display: none;
+}
+.admin-msg{
+    padding: 16px;
+    background-color: #F8F8F8;
+    border-radius: 5px;
+    color: #999;
+    height:56px;
+}
+.admin-msg:hover{
+    background-color: #eeeeee;
+    /*榧犳爣鍙樻垚灏忔墜*/
+    cursor: pointer;
+
+}
+.admin-msg a{
+    color:#01AAED;
+}
+.admin-msg h2{
+    font-size:18px;
+    color:#16b777;
+}
+.admin-msg .text{
+    padding:14px 0 2px 0;
+}
+/* 上传按钮 */
+#up_html{
+    margin-left:auto;
+    margin-right:auto;
+    width: 100%;
+    margin-bottom: 2em;
+    -moz-box-sizing: border-box; /*Firefox3.5+*/
+	-webkit-box-sizing: border-box; /*Safari3.2+*/
+	-o-box-sizing: border-box; /*Opera9.6*/
+	-ms-box-sizing: border-box; /*IE8*/
+	box-sizing: border-box; 
+    left:0%;
+}
+
+/* 后台设置提醒 */
+.setting-msg{
+    width:100%;
+    color: #FF5722;
+    border-left: 3px solid #FF5722;
+    background-color: #F0F0F0;
+    padding:0.8em;
+    border-radius: 1px;
+    margin-bottom:2em;
+    -moz-box-sizing: border-box; /*Firefox3.5+*/
+	-webkit-box-sizing: border-box; /*Safari3.2+*/
+	-o-box-sizing: border-box; /*Opera9.6*/
+	-ms-box-sizing: border-box; /*IE8*/
+	box-sizing: border-box; 
+}
+
+.page-msg{
+    width:100%;
+    color: #FF5722;
+    border-left: 3px solid #FF5722;
+    background-color: #F0F0F0;
+    padding:0.8em;
+    border-radius: 1px;
+    margin-bottom:2em;
+    -moz-box-sizing: border-box; /*Firefox3.5+*/
+	-webkit-box-sizing: border-box; /*Safari3.2+*/
+	-o-box-sizing: border-box; /*Opera9.6*/
+	-ms-box-sizing: border-box; /*IE8*/
+	box-sizing: border-box; 
+}
+
+.page-msg a{
+    color:#01AAED;
+}
+
+.page-msg ol li{
+    list-style-type:decimal;
+}
+
+.page-msg ol{
+    margin-left: 1.5em;
+}
+
+.setting-msg a{
+    color:#01AAED;
+}
+/* 占位用 */
+.place-holder{
+    padding-bottom: 3em;
+}
+/* .screenshot {
+    height:220px;
+} */
+
+.screenshot {
+    position: relative; /* 确保父容器是相对定位 */
+    /* 其他样式 */
+}
+
+.in-use {
+    position: absolute; /* 绝对定位“使用中”标签 */
+    top: 0; /* 距离顶部的距离 */
+    left: 0px; /* 距离右侧的距离 */
+    background-color: #ff5722; /* 背景颜色 */
+    color: white; /* 文字颜色 */
+    padding: 5px 10px; /* 内边距 */
+    
+    box-shadow: 0px 0px 3px #888; /* 可选：添加一些阴影效果 */
+}
+
+
+.screenshot img{
+    width: 100%;
+    height:240px;
+    /*自动裁剪图片*/
+    object-fit: cover;
+    border-radius: 3px;
+    /*鼠标移动到上面变成小手*/
+    cursor: pointer;
+}
+
+#progress{
+    display:none;
+    margin-top:1em;
+}
+
+#show_icon{
+    display:inline-block;width:38px;height:38px;border:1px solid #F6F6F6;
+    position: relative;
+    /* bottom: 9px; */
+}
+
+#show_icon img{
+    height: 38px;
+    width: 38px;
+}
+
+.custom-card {
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.06); /* 更细微的阴影 */
+    transition: 0.3s;
+    border-radius: 10px; /* 圆角边框 */
+    background-color: #f9f9f9; /* 非常淡的灰色背景 */
+  }
+
+  .custom-card:hover {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+    transform: scale(1.03); /* 稍微缩放的悬停效果 */
+  }
+
+  .layui-card-header {
+    font-weight: bold; /* 自定义标题样式 */
+    color: #333; /* 字体颜色 */
+    font-size: 16px;
+  }
+
+  .layui-card-body {
+    color: #333; /* 内容字体颜色 */
+    font-size: 14px; /* 字体大小 */
+  }
+
+.thme-btns {
+    text-align: center;
+    padding:6px 0 6px 0;
+}
+
+.upload-backup{
+    margin-top: 16px;
+}
+
+.them-header{
+
+}
+.them-header .left{
+    width: 50%;
+    float:left;
+    text-align: left;
+}
+.them-header .right{
+    width: 50%;
+    text-align: right;
+    float:right;
+}

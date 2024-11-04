@@ -1,0 +1,136 @@
+{% extends "Froxlor/base.html.twig" %}
+
+{% set body_class = "min-vh-100 d-flex flex-column" %}
+
+{% block navigation %}
+	{% if get_setting('panel.is_configured') == 0 and userinfo.adminsession == 1 and userinfo.change_serversettings == 1 %}
+		<div class="alert alert-info rounded-0 mb-0 d-flex justify-content-between align-items-baseline" role="alert">
+			<span>
+				<i class="alert-icon fa-solid fa-info-circle"></i> {{ lng('panel.not_configured') }}
+			</span>
+
+			<span>
+				<a href="{{ linker({'section': 'configfiles', 'page': 'configfiles'}) }}" class="btn btn-light btn-sm">
+					Setup starten
+				</a>
+			</span>
+		</div>
+	{% endif %}
+
+	<nav class="navbar navbar-expand-md navbar-light p-0 {% if not block('heading') %}shadow-sm{% endif %}">
+		<div class="container-fluid gx-0">
+			<div>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle sidebar">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			</div>
+			<a class="navbar-brand me-0 {% if block('heading') %}shadow-sm{% endif %}" href="{{ linker({'section': 'index'}) }}">
+				<img src="{{ header_logo }}" alt="logo" class="header-logo d-inline-block align-text-top ms-md-3">
+			</a>
+			<div class="order-0 order-md-1 d-flex flex-grow-0 flex-md-grow-auto" id="navbar">
+				<ul class="navbar-nav ms-md-auto me-3 me-lg-5">
+					<a class="nav-link d-md-none" data-bs-toggle="collapse" href="#collapseSearch" role="button" aria-expanded="false" aria-controls="collapseSearch">
+						<i class="fa-solid fa-search text-body-secondary"></i>
+					</a>
+					{% if call_static('\\Froxlor\\CurrentUser', 'getField', ['switched_user']) is not empty and call_static('\\Froxlor\\CurrentUser', 'getField', ['switched_user']) is iterable %}
+						<a class="nav-link text-success" href="{{ linker({'section': 'index', 'action': 'suback'}) }}">
+							<i class="fa-solid fa-reply me-1"></i><span class="d-none d-xl-inline">{{ userinfo.switched_user.loginname }}</span>
+						</a>
+					{% endif %}
+					{% if userinfo.adminsession == 1 and call_static('\\Froxlor\\CurrentUser', 'getField', ['change_serversettings']) is not empty and call_static('\\Froxlor\\CurrentUser', 'getField', ['change_serversettings']) == 1 %}
+						<li class="nav-item" id="updatecheck"></li>
+					{% endif %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ linker({'section': 'index'}) }}">
+							<i class="fa-solid fa-house me-1"></i><span class="d-none d-xl-inline">{{ lng('panel.dashboard') }}</span>
+						</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarOpts" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="fa-solid fa-user me-1"></i><span class="d-none d-xl-inline">{{ userinfo.loginname }}</span>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarOpts">
+							<li>
+								<a class="dropdown-item" href="{{ linker({'section': 'index', 'page': 'profile'}) }}">
+									<i class="fa-solid fa-user-gear"></i> {{ lng('panel.profile') }}
+								</a>
+							</li>
+							{% if get_setting('2fa.enabled') == 1 %}
+								<li>
+									<a class="dropdown-item" href="{{ linker({'section': 'index', 'page': '2fa'}) }}">
+										<i class="fa-solid fa-shield"></i> {{ lng('2fa.2fa') }}
+									</a>
+								</li>
+							{% endif %}
+							{% if get_setting('api.enabled') == 1 and userinfo.api_allowed == 1 %}
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ linker({'section': 'index', 'page': 'apikeys'}) }}">
+										<i class="fa-solid fa-key"></i> {{ lng('menue.main.apikeys') }}
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="https://docs.froxlor.org/latest/api-guide/" rel="external" target="_blank">
+										<i class="fa-solid fa-circle-info"></i> {{ lng('menue.main.apihelp') }}
+									</a>
+								</li>
+							{% endif %}
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-primary" title="{{ lng('login.logout') }}" href="{{ linker({'section': 'index', 'action': 'logout'}) }}">
+							<i class="fas fa-power-off"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="order-1 order-md-0 collapse navbar-collapse" id="collapseSearch">
+				<form class="ms-3 mt-3 ms-lg-5 my-md-0 w-100" id="search" method="post">
+					<div class="d-flex align-items-center w-100">
+						<i class="fa-solid fa-search text-body-secondary"></i>
+						<input tabindex="1" class="search-input w-75" title="search" type="search" placeholder="{{ lng('panel.search') }}...">
+					</div>
+					<div class="search-results-box p-2 shadow" style="display:none;">
+						<div class="search-results list-group-flush"></div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</nav>
+{% endblock %}
+
+{% block body %}
+	<div class="d-flex flex-grow-1">
+		{{ include('Froxlor/sidebar.html.twig') }}
+
+		<div class="d-flex flex-grow-1 overflow-hidden">
+
+			<main class="d-flex flex-column flex-grow-1 overflow-auto">
+				{% if block('heading') %}
+					<section class="py-3 px-3 px-lg-5 heading shadow-sm d-flex justify-content-between align-items-center">
+						<div>{% block heading %}{% endblock %}</div>
+						<div>{% block actions %}{% endblock %}</div>
+					</section>
+				{% endif %}
+
+				{% block errors %}
+					{% if call_static('\\Froxlor\\ErrorBag', 'hasErrors') %}
+						{% for error in call_static('\\Froxlor\\ErrorBag', 'getErrors') %}
+							{{ error|raw }}
+						{% endfor %}
+					{% endif %}
+				{% endblock %}
+
+				<section class="flex-grow-1 p-3 p-lg-5">
+					{% block content %}{% endblock %}
+				</section>
+
+				{{ include('Froxlor/footer.html.twig') }}
+			</main>
+
+			{% block subsidebar %}{% endblock %}
+		</div>
+	</div>
+{% endblock %}

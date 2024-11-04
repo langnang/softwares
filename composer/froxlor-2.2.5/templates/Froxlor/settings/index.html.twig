@@ -1,0 +1,60 @@
+{% extends "Froxlor/userarea.html.twig" %}
+
+{% block heading %}
+	<h5>
+		<i class="fa-solid fa-gears"></i>
+		{{ lng('admin.serversettings') }}
+		{% if fields._group is defined %}&nbsp;&raquo;&nbsp;{{ fields._group.title|raw }}
+		{% endif %}
+	</h5>
+	<span class="text-body-secondary">{{ lng('admin.serversettings_desc') }}</span>
+{% endblock %}
+
+{% block actions %}
+	<a class="btn btn-outline-secondary me-2" href="{{ linker({'section':'settings','page':'toggleSettingsMode'}) }}" title="{{ lng('panel.settingsmodetoggle') }}">
+		{% if get_setting('panel.settings_mode') == 0 %}
+		<i class="fa-solid fa-maximize me-1"></i>
+		{{ lng('panel.settingsmode') }}: {{ lng('panel.settingsmodebasic') }}
+		{% else %}
+		<i class="fa-solid fa-minimize me-1"></i>
+		{{ lng('panel.settingsmode') }}: {{ lng('panel.settingsmodeadvanced') }}
+		{% endif %}
+	</a>
+	<a class="btn btn-outline-secondary" href="{{ linker({'section':'settings','page':'importexport'}) }}">
+		<i class="fa-solid fa-file-import me-1"></i>
+		{{ lng('admin.configfiles.importexport') }}
+	</a>
+{% endblock %}
+
+{% block content %}
+	<form action="{{ action|default(filename) }}" method="post" enctype="multipart/form-data" class="form">
+		{% block settings %}
+			<div class="row row-cols-2 row-cols-md-2 row-cols-xl-4 g-3">
+				{% for field in fields %}
+					{% if get_setting('system.hide_incompatible_settings') == 0 or (get_setting('system.hide_incompatible_settings') == 1 and (field.visible is not defined or (field.visible is defined and field.visible))) %}
+					<div class="col">
+						<div class="card h-100 position-relative {% if not field.activated %}{% endif %}">
+							<div class="card-body d-flex overflow-hidden align-items-center">
+								<a href="{{ linker({'section':'settings','page':'overview','part':field.part}) }}" class="stretched-link">
+									<i class="{{ field.icon }} fa-2x me-4" style="width: 1em;"></i>
+								</a>
+								<div>
+									{{ field.title|raw }}
+									{% if field.info is defined and field.info is not empty %}
+										{{ field.info|raw }}
+									{% endif %}
+								</div>
+							</div>
+							{% if not field.activated %}
+								<div class="position-absolute top-0 end-0 p-1">
+									<span class="badge text-bg-light">{{ lng('panel.not_activated') }}</span>
+								</div>
+							{% endif %}
+						</div>
+					</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+		{% endblock %}
+	</form>
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends "Froxlor/base.html.twig" %}
+
+{% block content %}
+	<div class="container max-w-lg flex align-content-center mt-5">
+		<img src="{{ basehref|default('') }}templates/Froxlor/assets/img/logo.png" class="mb-5" alt="{{ lng('install.slogan') }}"/>
+
+		{% if error is not null %}
+			<div class="alert alert-danger mb-4">{{ error }}</div>
+		{% endif %}
+
+		<div class="row text-center gx-0">
+			<div class="col p-3{{ setup.step == 0 ? ' bg-white shadow rounded-top' : '' }}">
+				<i class="far fa-circle{{ setup.step > 0 ? '-check' : '' }}"></i>
+				{% if setup.step > 0 %}<a href="?step=0" class="text-decoration-none">{{ lng('install.preflight') }}</a>{% else %}{{ lng('install.preflight') }}{% endif %}
+			</div>
+			<div class="col p-3{{ setup.step == 1 ? ' bg-white shadow rounded-top' : '' }}">
+				<i class="far fa-circle{{ setup.step > 1 ? '-check' : '' }}"></i>
+				{% if setup.step > 1 %}<a href="?step=1" class="text-decoration-none">{{ lng('install.database.top') }}</a>{% else %}{{ lng('install.database.top') }}{% endif %}
+			</div>
+			<div class="col p-3{{ setup.step == 2 ? ' bg-white shadow rounded-top' : '' }}">
+				<i class="far fa-circle{{ setup.step > 2 ? '-check' : '' }}"></i>
+				{% if setup.step > 2 %}<a href="?step=2" class="text-decoration-none">{{ lng('install.admin.top') }}</a>{% else %}{{ lng('install.admin.top') }}{% endif %}
+			</div>
+			<div class="col p-3{{ setup.step == 3 ? ' bg-white shadow rounded-top' : '' }}">
+				<i class="far fa-circle{{ setup.step > 3 ? '-check' : '' }}"></i>
+				{% if setup.step > 3 %}<a href="?step=3" class="text-decoration-none">{{ lng('install.system.top') }}</a>{% else %}{{ lng('install.system.top') }}{% endif %}
+			</div>
+			<div class="col p-3{{ setup.step == 4 ? ' bg-white shadow rounded-top' : '' }}">
+				<i class="far fa-circle{{ setup.step > 4 ? '-check' : '' }}"></i>
+				{% if setup.step > 4 %}<a href="?step=4" class="text-decoration-none">{{ lng('install.install.top') }}</a>{% else %}{{ lng('install.install.top') }}{% endif %}
+			</div>
+		</div>
+
+		<div class="card border-0 shadow">
+			<div class="card-body p-5">
+				<form method="post" action="?step={{ setup.step }}">
+					{% if setup.step > 0 %}
+						<div class="d-block d-lg-flex justify-content-between align-items-center mb-3">
+							<h4 class="mb-3 mb-lg-0">{{ section.title }}</h4>
+							<div class="form-check form-switch">
+								<input class="form-check-input" type="checkbox" id="switchInstallMode" {% if extended is defined and extended %}checked{% endif %}>
+								<label class="form-check-label" for="switchInstallMode">{% if extended is defined and extended %}{{ lng('install.switchmode_basic') }}{% else %}{{ lng('install.switchmode_advanced') }}{% endif %}</label>
+							</div>
+						</div>
+						<p class="lead">{{ section.description|raw }}</p>
+						<hr />
+
+						{% import "Froxlor/form/formfields.html.twig" as formfields %}
+
+						{% for id, field in section.fields %}
+							{% if field.advanced is defined and field.advanced == true and extended == false %}
+								{# hide advanced fields #}
+								{% set field = field|merge({'type': 'hidden'})  %}
+							{% endif %}
+							{{ formfields.field(id, field) }}
+						{% endfor %}
+
+						<div class="d-flex {% if setup.step < setup.max_steps %}justify-content-between{% else %}justify-content-end{% endif %} mt-4">
+							{% if setup.step < setup.max_steps %}
+							<a href="?step={{ setup.step - 1 }}" class="btn btn-secondary">&laquo; {{ lng('panel.back') }}</a>
+							<button type="submit" name="submit" class="btn btn-primary">{{ lng('panel.next') }} &raquo;</button>
+							{% else %}
+							<span id="submitAuto"><i class="fas fa-spinner fa-pulse"></i> {{ lng('install.install.waitforconfig') }}</span>
+							<button id="submitManual" type="submit" name="submit" class="btn btn-success d-none">{{ lng('install.install.top') }} &raquo;</button>
+							{% endif %}
+						</div>
+					{% else %}
+						<h4 class="mb-3">{{ lng('install.dependency_check.title') }}</h4>
+						<p class="lead">{{ lng('install.dependency_check.description') }}</p>
+
+						<p class="lead {{ preflight.criticals ? 'text-danger' : preflight.suggestions ? 'text-warning' : 'text-success'}}">
+							<i class="{{ preflight.criticals ? 'fa-solid fa-triangle-exclamation' : preflight.suggestions ? 'fa-solid fa-circle-info' : 'far fa-circle-check' }}"></i>
+							{{ preflight.text }}
+						</p>
+
+						{% if preflight.criticals %}
+							<p class="text-body-secondary">{{ lng('install.critical_error') }}</p>
+							<ul>
+								{% for ctype, critical in preflight.criticals %}
+									{% if ctype == 'wrong_ownership' %}
+									<li>{{ lng('install.errors.' ~ ctype, [critical.user, critical.group]) }}</li>
+									{% elseif ctype == 'missing_extensions' %}
+									<li>{{ lng('install.errors.' ~ ctype) }}<ul>
+										{% for missext in critical %}
+										<li>{{ missext }}</li>
+										{% endfor %}
+										</ul>
+									</li>
+									{% else %}
+									<li>{{ critical|raw }}</li>
+									{% endif %}
+								{% endfor %}
+							</ul>
+						{% endif %}
+
+						{% if preflight.suggestions %}
+							<p class="text-body-secondary">{{ lng('install.suggestions') }}</p>
+							<ul>
+								{% for ctype, suggestion in preflight.suggestions %}
+									{% if ctype == 'missing_extensions' %}
+									<li>{{ lng('install.errors.suggestedextensions') }}<ul>
+										{% for missext in suggestion %}
+										<li>{{ missext }}</li>
+										{% endfor %}
+										</ul>
+									</li>
+									{% else %}
+									<li>{{ suggestion|raw }}</li>
+									{% endif %}
+								{% endfor %}
+							</ul>
+						{% endif %}
+
+						<div class="d-flex justify-content-end mt-4">
+							{% if preflight.criticals %}
+								<a href="" class="btn btn-secondary"><i class="fa-solid fa-arrow-rotate-left"></i> {{ lng('install.check_again') }}</a>
+							{% else %}
+								<a href="?step=1" class="btn btn-primary">{{ lng('install.start_installation') }}</a>
+							{% endif %}
+						</div>
+					{% endif %}
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

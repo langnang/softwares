@@ -1,0 +1,19 @@
+.heading {
+	color: $heading-color;
+	background-color: $heading-bg;
+	border-top: $heading-border-color solid 1px;
+}
+
+.heading h5 {
+	color: $heading-color;
+}
+
+@include color-mode(dark) {
+	.heading {
+		background: $dark-bg;
+		border-top: $heading-border-color-dark solid 1px;
+	}
+	.heading h5 {
+		color: $body-color-dark;
+	}
+}

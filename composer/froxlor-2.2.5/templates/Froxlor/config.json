@@ -1,0 +1,30 @@
+{
+	"global": {
+		"css": [
+			"assets/scss/app.scss",
+			"assets/css/custom.css"
+		],
+		"js": [
+			"assets/js/app.js",
+			"assets/js/apikey.js"
+		],
+		"img": {
+			"ui": "logo_white.png",
+			"login": "logo.png"
+		}
+	},
+	"variants": {
+		"default": {
+			"color-scheme": "light",
+			"description": "Default (light)"
+		},
+		"dark": {
+			"color-scheme": "dark",
+			"img": {
+				"login": "logo_white.png"
+			},
+			"description": "Darkmode"
+		}
+	},
+	"author": "Froxlor"
+}

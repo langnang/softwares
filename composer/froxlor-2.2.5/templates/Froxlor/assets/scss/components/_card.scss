@@ -1,0 +1,38 @@
+.card {
+	@extend .shadow-sm;
+	margin-bottom: $spacer * 1.5;
+
+	.card-header {
+		border-bottom: $border-color solid 1px;
+		font-weight: bold;
+	}
+
+	.card-body {
+		p {
+			@extend .card-text;
+		}
+	}
+
+	&.deactivated {
+		@extend .text-body-secondary;
+		background: lighten($light-bg, 3%);
+
+		i {
+			@extend .text-body-secondary;
+		}
+	}
+}
+.list-group-item {
+	background: $white;
+}
+
+@include color-mode(dark) {
+	.card, .list-group-item {
+		background: $dark-bg;
+	}
+	.card {
+		.card-header {
+			border-bottom: $border-color-dark solid 1px;
+		}
+	}
+}

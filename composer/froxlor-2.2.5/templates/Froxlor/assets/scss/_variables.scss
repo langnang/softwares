@@ -1,0 +1,91 @@
+// CI
+$froxlor-50: #e1f4fa;
+$froxlor-100: #b3e3f1;
+$froxlor-200: #84d0e9;
+$froxlor-300: #5abde0;
+$froxlor-400: #3eb0db;
+$froxlor-500: #29a2d6;
+$froxlor-600: #2395c8;
+$froxlor-700: #1a83b6;
+$froxlor-800: #1872a2;
+$froxlor-900: #0e5380;
+
+// Gray
+$white:    #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black:    #000;
+
+// Colors
+$light: $gray-100;
+$primary: $froxlor-800;
+$secondary: $gray-600;
+$info: $froxlor-900;
+$warning: #FBBF24;
+$danger: #BE123C;
+$success: #059669;
+
+// Body
+$light-bg: $gray-100;
+$dark-bg: $gray-800;
+
+// Typography
+$light-font-color: $gray-800;
+$dark-font-color: $gray-100;
+
+$alert-bg-scale: 0;
+$alert-color-scale: 0;
+$alert-border-width: 0;
+
+$list-group-item-color-scale: 0;
+$list-group-item-bg-scale: 0;
+
+$input-bg: lighten($light-bg, 5%);
+
+$font-size-root: 16px;
+
+// Spacing
+$spacer: 1.25rem;
+$enable-negative-margins: true;
+
+// Body
+$body-bg: $light-bg;
+$body-color: $light-font-color;
+
+// Borders
+// $border-radius: 0.5rem;
+
+// Links
+$link-color: $froxlor-800;
+
+// Navbar
+$navbar-bg: $white;
+$navbar-bg-mobile: $gray-900;
+
+// Sidebar
+$sidebar-width: 256px;
+
+// Card
+$card-bg: $white;
+$card-cap-bg: none;
+$card-cap-padding-y: $spacer;
+$card-border-width: 0;
+
+// Heading
+$heading-bg: $navbar-bg;
+$heading-color: $body-color;
+$heading-border-color: #dee2e6;
+$heading-border-color-dark: rgba(0,0,0,0.15);
+
+// Search
+$search-bg: $navbar-bg;
+
+// Popover size
+$popover-max-width: 320px;

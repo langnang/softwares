@@ -1,0 +1,40 @@
+{% extends "Froxlor/settings/index.html.twig" %}
+
+{% block actions %}
+	<a class="btn btn-outline-primary me-2" href="{{ linker({'section':'settings','page':'overview','part':'all'}) }}">
+		<i class="fa-solid fa-grip me-1"></i>
+		{{ lng('admin.configfiles.overview') }}
+	</a>
+	<a class="btn btn-outline-secondary" href="{{ linker({'section':'settings','page':'importexport'}) }}">
+		<i class="fa-solid fa-file-import me-1"></i>
+		{{ lng('admin.configfiles.importexport') }}
+	</a>
+{% endblock %}
+
+{% block settings %}
+
+	{% import "Froxlor/form/formfields.html.twig" as formfields %}
+
+	<div class="card mb-3">
+		<div class="formfields">
+			{% for id,setting in fields %}
+				{% if id != '_group' %}
+					{% set isEm = em is defined and em == id %}
+					{{ formfields.fieldrow(id, setting, false, (get_setting('system.hide_incompatible_settings') == '0'), isEm) }}
+				{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+
+	<div>
+		<input type="hidden" name="csrf_token" value="{{ csrf_token }}"/>
+		<input type="hidden" name="page" value="{{ page }}"/>
+		<input type="hidden" name="action" value="{{ action }}"/>
+		<input type="hidden" name="send" value="send"/>
+
+		<div class="col-12 text-center mb-2 d-grid gap-2 d-md-block">
+			<button type="reset" class="btn btn-lg btn-outline-secondary me-md-3">{{ lng('panel.reset') }}</button>
+			<button type="submit" class="btn btn-lg btn-primary">{{ lng('panel.save') }}</button>
+		</div>
+	</div>
+{% endblock %}

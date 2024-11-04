@@ -1,0 +1,139 @@
+{% extends "Froxlor/userarea.html.twig" %}
+
+{% block heading %}
+	<h5>
+		<i class="fa-solid fa-wrench"></i>
+		{{ lng('admin.configfiles.serverconfiguration') }}
+	</h5>
+	<span class="text-body-secondary">{{ lng('admin.configfiles.description') }}</span>
+{% endblock %}
+
+{% block actions %}
+	<a class="btn btn-outline-primary" href="{{ linker({'section':'configfiles','reselect':1}) }}">
+		<i class="fa-solid fa-grip me-1"></i>
+		{{ lng('admin.configfiles.distribution') }}:
+		{{ distribution }}
+	</a>
+{% endblock %}
+
+{% block content %}
+
+	<div class="pb-2">
+		<div class="alert alert-info fade show" role="alert">
+			<p>{{ lng('admin.configfiles.minihowto')|raw }}</p>
+		</div>
+	</div>
+
+	<form action="{{ action|default(filename) }}" method="post" enctype="application/x-www-form-urlencoded" class="form">
+		{% block settings %}
+			<div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-3">
+				{% for stype,field in fields %}
+					<div class="col">
+						<div class="card h-100 position-relative">
+							<div class="card-body">
+								<h5 class="card-title">{{ stype|upper }}</h5>
+								{% if stype != 'system' %}
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="{{ stype }}" id="{{ stype }}none" value="x" checked>
+										<label class="form-check-label" for="{{ stype }}none">
+											{{ lng('admin.configfiles.skipconfig') }}
+										</label>
+									</div>
+								{% endif %}
+								{% set daemons = field.getDaemons %}
+								{% for dtype,daemon in daemons %}
+									{% if stype == 'system' %}
+										<div class="form-check">
+											{% set recommended = false %}
+											{% if
+												(dtype == get_setting('system.traffictool')) or
+												(dtype == 'libnssextrausers' and (get_setting('system.mod_fcgid') == '1' or get_setting('phpfpm.enabled') == '1' or get_setting('system.apacheitksupport') == '1')) or
+												(dtype == 'logrotate') or
+												(dtype == 'fcgid' and get_setting('system.mod_fcgid') == '1') or
+												(dtype == 'php-fpm' and get_setting('phpfpm.enabled') == '1') or
+												(dtype == 'cron')
+											%}
+												{% set recommended = true %}
+											{% endif %}
+											<input class="form-check-input" type="checkbox" name="system[{{ dtype }}]" id="{{ dtype }}" value="{{ dtype }}" data-recommended="{{ recommended }}">
+											<label class="form-check-label" for="{{ dtype }}">
+												{% if recommended %}
+													<strong>{{ daemon.title }}<span class="text-danger">*</span>
+													</strong>
+												{% else %}
+													{{ daemon.title }}
+												{% endif %}
+											</label>
+											<a class="show-config text-secondary opacity-50 float-end" role="button" data-dist="{{ distribution }}" data-section="{{ stype }}" data-daemon="{{ dtype }}" title="show config">
+												<i class="fa-regular fa-file-code"></i>
+											</a>
+										</div>
+									{% else %}
+										<div class="form-check">
+											{% set recommended = false %}
+											{% if
+												(dtype == 'apache22' and get_setting('system.webserver') == 'apache2' and get_setting('system.apache24') == '0') or
+												(dtype == 'apache24' and get_setting('system.webserver') == 'apache2' and get_setting('system.apache24') == '1') or
+												(dtype == 'lighttpd' and get_setting('system.webserver') == 'lighttpd') or
+												(dtype == 'nginx' and get_setting('system.webserver') == 'nginx') or
+												(dtype == 'bind' and get_setting('system.bind_enable') == '1' and get_setting('system.dns_server') == 'Bind') or
+												(dtype == 'powerdns' and get_setting('system.bind_enable') == '1' and get_setting('system.dns_server') == 'PowerDNS') or
+												(dtype == 'proftpd' and get_setting('system.ftpserver') == 'proftpd') or
+												(dtype == 'pureftpd' and get_setting('system.ftpserver') == 'pureftpd') or
+												(dtype == 'rspamd' and get_setting('antispam.activated') == '1')
+											%}
+												{% set recommended = true %}
+											{% endif %}
+											<input class="form-check-input" type="radio" name="{{ stype }}" id="{{ dtype }}" value="{{ dtype }}" data-recommended="{{ recommended }}">
+											<label class="form-check-label" for="{{ dtype }}">
+												{% if recommended %}
+													<strong>{{ daemon.title }}<span class="text-danger">*</span>
+													</strong>
+												{% else %}
+													{{ daemon.title }}
+												{% endif %}
+											</label>
+											<a class="show-config text-secondary opacity-50 float-end" role="button" data-dist="{{ distribution }}" data-section="{{ stype }}" data-daemon="{{ dtype }}" title="show config">
+												<i class="fa-regular fa-file-code"></i>
+											</a>
+										</div>
+									{% endif %}
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		{% endblock %}
+		<div class="row mt-3">
+			<input type="hidden" name="csrf_token" value="{{ csrf_token }}"/>
+			<input type="hidden" name="finish" value="1"/>
+			<div class="col-12 col-md-6">
+				<span class="text-danger">*</span>
+				{{ lng('admin.configfiles.recommendednote') }}
+			</div>
+			<div class="col-12 col-md-6 text-end">
+				<button type="button" class="btn btn-outline-secondary me-md-3" id="selectRecommendedConfig">{{ lng('admin.configfiles.selectrecommended') }}</button>
+				<button type="button" class="btn btn-outline-secondary me-md-3" id="downloadSelectionAsJson">
+					<i class="fa-solid fa-download"></i>
+					{{ lng('admin.configfiles.downloadselected') }}</button>
+				<button type="submit" class="btn btn-primary">{{ lng('update.proceed') }}</button>
+			</div>
+		</div>
+	</form>
+
+	<div class="modal fade" id="configTplShow" aria-hidden="true" aria-labelledby="configTplShowLabel" tabindex="-1">
+		<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="configTplShowLabel"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ lng('panel.modalclose') }}"></button>
+				</div>
+				<div class="modal-body text-start"></div>
+				<div class="modal-footer">
+					<button class="btn btn-primary" data-bs-dismiss="modal">{{ lng('panel.modalclose') }}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

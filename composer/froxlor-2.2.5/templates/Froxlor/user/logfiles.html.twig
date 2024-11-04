@@ -1,0 +1,47 @@
+{% extends "Froxlor/userarea.html.twig" %}
+
+{% block heading %}
+	<div>
+		<h5 class="mb-1">
+			<i class="fa-solid fa-magnifying-glass me-1"></i>
+			{{ lng('panel.viewlogs') }}
+		</h5>
+	</div>
+{% endblock %}
+
+{% block actions %}
+
+	{% if actions_links is iterable or (entity_info is defined and entity_info is not empty) %}
+		<div>
+			{% if actions_links is iterable %}
+				{% for link in actions_links %}
+					<a class="btn {{ link.class|default('btn-outline-primary') }}{% if not loop.last %} me-1{% endif %}" href="{{ link.href|raw }}" {% if link.target is defined %}target="{{ link.target }}"{% endif %}>
+						<i class="{{ link.icon|default('fa-solid fa-plus-circle') }}"></i>
+						{% if link.label is defined and link.label is not empty %}<span class="d-none d-lg-inline ms-lg-1">{{ link.label }}</span>{% endif %}
+					</a>
+				{% endfor %}
+			{% endif %}
+		</div>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+
+	<ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
+		<li class="nav-item" role="presentation">
+			<a class="nav-link active" id="ex1-tab-1" data-bs-toggle="tab" href="#ex1-tabs-1" role="tab" aria-controls="ex1-tabs-1" aria-selected="true">Error log</a>
+		</li>
+		<li class="nav-item" role="presentation">
+			<a class="nav-link" id="ex1-tab-2" data-bs-toggle="tab" href="#ex1-tabs-2" role="tab" aria-controls="ex1-tabs-2" aria-selected="false">Access log</a>
+		</li>
+	</ul>
+
+	<div class="tab-content" id="ex1-content">
+		<div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+				<textarea rows="16" class="logcontent" readonly>{{ error_log_content }}</textarea>
+		</div>
+		<div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+				<textarea rows="16" class="logcontent" readonly>{{ access_log_content }}</textarea>
+		</div>
+	</div>
+{% endblock %}

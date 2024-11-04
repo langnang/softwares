@@ -1,0 +1,305 @@
+{% extends "Froxlor/userarea.html.twig" %}
+
+{% block heading %}
+
+	<div>
+		<h5 class="mb-1">
+			<i class="fa-solid fa-chart-area me-1"></i>
+			{{ lng('admin.traffic') }}
+		</h5>
+		<span class="text-body-secondary">{{ lng('admin.traffic_sub') }}</span>
+	</div>
+
+{% endblock %}
+
+{% block content %}
+
+	<!-- Range -->
+	<!-- TODO: set url on change. e.g.: ?param=days:7 -->
+	<div class="d-flex justify-content-center justify-content-md-end">
+		<select class="form-select mb-3 mb-md-4 w-auto mt-md-n4" aria-label="select the traffic range" name="range" data-baseref="{{ linker({'section':'traffic'}) }}">
+			<option value="hours:24" {% if range == 'hours:24' %}selected{% endif %}>{{ lng('traffic.ranges.last24h') }}</option>
+			<option value="days:7" {% if range == 'days:7' %}selected{% endif %}>{{ lng('traffic.ranges.last7d') }}</option>
+			<option value="days:30" {% if range == 'days:30' %}selected{% endif %}>{{ lng('traffic.ranges.last30d') }}</option>
+			<option value="currentmonth" {% if range == 'currentmonth' %}selected{% endif %}>{{ lng('traffic.ranges.cm') }}</option>
+			<option value="months:3" {% if range == 'months:3' %}selected{% endif %}>{{ lng('traffic.ranges.last3m') }}</option>
+			<option value="months:6" {% if range == 'months:6' %}selected{% endif %}>{{ lng('traffic.ranges.last6m') }}</option>
+			<option value="months:12" {% if range == 'months:12' %}selected{% endif %}>{{ lng('traffic.ranges.last12m') }}</option>
+			<option value="currentyear" {% if range == 'currentyear' %}selected{% endif %}>{{ lng('traffic.ranges.cy') }}</option>
+			{% for yd in years_avail %}
+				{% if yd.year != "now"|date('Y') %}
+					<option value="year:{{ yd.year }}" {% if range == 'year:' ~ yd.year %}selected{% endif %}>{{ yd.year }}</option>
+				{% endif %}
+			{% endfor %}
+		</select>
+	</div>
+
+	<div class="card">
+		<div class="row row-cols-1 row-cols-md-2 g-0">
+			<div class="col p-3 border-end">
+				<canvas id="trafficsummary" style="max-height:30vh;"></canvas>
+			</div>
+			<div class="col p-3 border-end">
+				<canvas id="customersummary" style="max-height:30vh;"></canvas>
+			</div>
+		</div>
+	</div>
+
+	<!-- Overview for given range -->
+	<div class="card">
+		<div class="row row-cols-2 row-cols-md-4 g-0">
+			<div class="col p-3 border-end">
+				<h3>{{ metrics.total|formatBytes }}</h3>
+				<span>{{ lng('traffic.months.total') }}</span>
+			</div>
+			<div class="col p-3 border-end">
+				<h3>{{ metrics.http|formatBytes }}</h3>
+				<span>{{ lng('traffic.http') }}</span>
+			</div>
+			<div class="col p-3 border-end">
+				<h3>{{ metrics.ftp|formatBytes }}</h3>
+				<span>{{ lng('traffic.ftp') }}</span>
+			</div>
+			<div class="col p-3 border-end">
+				<h3>{{ metrics.mail|formatBytes }}</h3>
+				<span>{{ lng('traffic.mail') }}</span>
+			</div>
+		</div>
+	</div>
+
+	{% if userinfo.adminsession == 1 %}
+		<!-- Overview for given range by user -->
+		<h4 class="page-header">{{ lng('traffic.bycustomers') }}</h4>
+		{% if users is not empty %}
+			<div class="card table-responsive">
+				<table class="table table-borderless table-striped align-middle mb-0 px-3">
+					<thead>
+						<tr>
+							<th scope="col">{{ lng('login.username') }}</th>
+							<th scope="col">{{ lng('traffic.months.total') }}</th>
+							<th scope="col">{{ lng('traffic.http') }}</th>
+							<th scope="col">{{ lng('traffic.ftp') }}</th>
+							<th scope="col">{{ lng('traffic.mail') }}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for uid,user in users %}
+							<tr>
+								<td>
+									<a href="{{ linker({'section':'customers','page':'customers','action':'su','id':uid}) }}">{{ user.loginname }}</a>
+								</td>
+								<td>{{ user.total|formatBytes }}</td>
+								<td>{{ user.http|formatBytes }}</td>
+								<td>{{ user.ftp|formatBytes }}</td>
+								<td>{{ user.mail|formatBytes }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		{% else %}
+			<div class="card">
+				<div class="card-body">
+					<p>{{ lng('traffic.nodata') }}</p>
+				</div>
+			</div>
+		{% endif %}
+	{% endif %}
+
+	<script type="module">
+		const labelsS = ['{{ lng('traffic.http') }}', '{{ lng('traffic.ftp') }}', '{{ lng('traffic.mail') }}'];
+
+		const dataS = {
+			labels: labelsS,
+			datasets: [{
+				label: '{{ lng('traffic.trafficoverview') }}',
+				backgroundColor: ['rgb(255, 99, 132)', 'rgb(200, 199, 132)', 'rgb(255, 99, 0)'],
+				data: [{value: '{{ metrics.http|default(0) }}', formatted: '{{ metrics.http|formatBytes }}'}, {value: '{{ metrics.ftp|default(0) }}', formatted: '{{ metrics.ftp|formatBytes }}'}, {value: '{{ metrics.mail|default(0) }}', formatted: '{{ metrics.mail|formatBytes }}'}]
+			}]
+		};
+
+		const configS = {
+			type: 'pie',
+			data: dataS,
+			options: {
+				parsing: {
+					key: 'value'
+				},
+				responsive: true,
+				plugins: {
+					title: {
+						display: true,
+						text: '{{ lng('traffic.sumtotal') }}'
+					},
+					legend: {
+						position: 'right'
+					},
+					tooltip: {
+						enabled: true,
+						usePointStyle: true,
+						callbacks: {
+							label: (data) => {
+								return data.label + ' ' + data.raw.formatted
+							},
+						},
+					},
+				}
+			}
+		};
+
+		const sChart = new Chart(document.getElementById('trafficsummary'), configS);
+
+		{% if userinfo.adminsession == 1 %}
+			const labelsC = [];
+			const dataValues = [];
+			{% for user in users|slice(0, 5) %}
+				labelsC.push('{{ user.loginname }}');
+				dataValues.push({value: '{{ user.total|default(0) }}', formatted: '{{ user.total|formatBytes }}'});
+			{% endfor %}
+
+			const dataC = {
+				labels: labelsC,
+				datasets: [{
+					label: '{{ lng('traffic.top5customers') }}',
+					backgroundColor: ['rgb(255, 99, 132)', 'rgb(200, 199, 132)', 'rgb(255, 99, 0)', 'rgb(100, 100, 132)', 'rgb(240, 150, 232)'],
+					data: dataValues
+				}]
+			};
+
+			const configC = {
+				type: 'pie',
+				data: dataC,
+				options: {
+					parsing: {
+						key: 'value'
+					},
+					responsive: true,
+					plugins: {
+						title: {
+							display: true,
+							text: '{{ lng('traffic.top5customers') }}'
+						},
+						legend: {
+							position: 'right'
+						},
+						tooltip: {
+							enabled: true,
+							usePointStyle: true,
+							callbacks: {
+								label: (data) => {
+									return data.label + ' ' + data.raw.formatted
+								},
+							},
+						},
+					}
+				}
+			};
+
+			const cChart = new Chart(document.getElementById('customersummary'), configC);
+
+		{% elseif not (range starts with 'hours') %}
+
+			const labelsC = [];
+			const dataValues = [];
+			{% if range starts with 'days' or range == 'currentmonth' %}
+				{% for d,dd in days %}
+					labelsC.push('{{ d }}');
+				{% endfor %}
+			{% elseif range starts with 'months' or range starts with 'year' or range == 'currentyear' %}
+				{% for m,md in months %}
+					labelsC.push('{{ m }}');
+				{% endfor %}
+			{% else %}
+				{% for yr,year in years %}
+					labelsC.push('{{ yr }}');
+				{% endfor %}
+			{% endif %}
+
+			const dataC = {
+				labels: labelsC,
+				datasets: [
+					{
+					label: '{{ lng('traffic.sumhttp') }}',
+					backgroundColor: 'rgb(255, 99, 132)',
+					{% if range starts with 'days' or range == 'currentmonth' %}
+						data: [{% for d,dd in days %}{value: '{{ dd.http|default(0) }}', formatted: '{{ dd.http|formatBytes }}', axisv: '{{ d }}'},{% endfor %}],
+					{% elseif range starts with 'months' or range starts with 'year' or range == 'currentyear' %}
+						data: [{% for m,md in months %}{value: '{{ md.http|default(0) }}', formatted: '{{ md.http|formatBytes }}', axisv: '{{ m }}'},{% endfor %}],
+					{% else %}
+						data: [{% for yr,year in years %}{value: '{{ year.http|default(0) }}', formatted: '{{ year.http|formatBytes }}', axisv: '{{ yr }}'},{% endfor %}],
+					{% endif %}
+					parsing: {
+						xAxisKey: 'axisv'
+					}
+				},
+				{
+					label: '{{ lng('traffic.sumftp') }}',
+					backgroundColor: 'rgb(200, 199, 132)',
+					{% if range starts with 'days' or range == 'currentmonth' %}
+						data: [{% for d,dd in days %}{value: '{{ dd.ftp|default(0) }}', formatted: '{{ dd.ftp|formatBytes }}', axisv: '{{ d }}'},{% endfor %}],
+					{% elseif range starts with 'months' or range starts with 'year' or range == 'currentyear' %}
+						data: [{% for m,md in months %}{value: '{{ md.ftp|default(0) }}', formatted: '{{ md.ftp|formatBytes }}', axisv: '{{ m }}'},{% endfor %}],
+					{% else %}
+						data: [{% for yr,year in years %}{value: '{{ year.ftp|default(0) }}', formatted: '{{ year.ftp|formatBytes }}', axisv: '{{ yr }}'},{% endfor %}],
+					{% endif %}
+					parsing: {
+						xAxisKey: 'axisv'
+					}
+				},
+				{
+					label: '{{ lng('traffic.summail') }}',
+					backgroundColor: 'rgb(255, 99, 0)',
+					{% if range starts with 'days' or range == 'currentmonth' %}
+						data: [{% for d,dd in days %}{value: '{{ dd.mail|default(0) }}', formatted: '{{ dd.mail|formatBytes }}', axisv: '{{ d }}'},{% endfor %}],
+					{% elseif range starts with 'months' or range starts with 'year' or range == 'currentyear' %}
+						data: [{% for m,md in months %}{value: '{{ md.ftp|default(0) }}', formatted: '{{ md.ftp|formatBytes }}', axisv: '{{ m }}'},{% endfor %}],
+					{% else %}
+						data: [{% for yr,year in years %}{value: '{{ year.mail|default(0) }}', formatted: '{{ year.mail|formatBytes }}', axisv: '{{ yr }}'},{% endfor %}],
+					{% endif %}
+					parsing: {
+						xAxisKey: 'axisv'
+					}
+				},
+				]
+			};
+
+			const configC = {
+				type: 'line',
+				data: dataC,
+				options: {
+					parsing: {
+						yAxisKey: 'value'
+					},
+					responsive: true,
+					scales: {
+						x: {
+							stacked: true,
+						},
+						y: {
+							stacked: true
+						}
+					},
+					plugins: {
+						title: {
+							display: true,
+							text: '{{ lng('traffic.byrange') }}'
+						},
+						tooltip: {
+							enabled: true,
+							usePointStyle: true,
+							callbacks: {
+								label: (data) => {
+									return data.raw.formatted
+								},
+							},
+						},
+					}
+				}
+			};
+
+			const cChart = new Chart(document.getElementById('customersummary'), configC);
+
+		{% endif %}
+	</script>
+
+{% endblock %}

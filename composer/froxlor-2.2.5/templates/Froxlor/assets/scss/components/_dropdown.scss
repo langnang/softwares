@@ -1,0 +1,24 @@
+.dropdown {
+	.dropdown-menu {
+		.dropdown-item {
+			i {
+				width: 1rem;
+				margin-right: 1rem;
+				text-align: center;
+				color: $body-secondary-color;
+			}
+		}
+	}
+}
+
+@include color-mode(dark) {
+	.dropdown {
+		.dropdown-menu {
+			.dropdown-item {
+				i {
+					color: $body-secondary-color-dark;
+				}
+			}
+		}
+	}
+}

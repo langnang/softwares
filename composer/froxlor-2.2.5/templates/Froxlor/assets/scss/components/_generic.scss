@@ -1,0 +1,101 @@
+// Fontawesome
+@import "@fortawesome/fontawesome-free/scss/fontawesome";
+@import "@fortawesome/fontawesome-free/css/all";
+
+// Generic
+.header-logo {
+	height: 24px;
+}
+
+.page-header {
+	margin-bottom: 2rem;
+
+	&:after {
+		margin-top: .5rem;
+		display: block;
+		height: 3px;
+		width: 100px;
+		background: $froxlor-800;
+		border-radius: 3px;
+		content: ' ';
+	}
+}
+
+.alert-icon {
+	padding: .5rem;
+	background: rgba(0, 0, 0, .15);
+	text-align: center;
+	border-radius: $border-radius;
+	margin-right: .75rem;
+}
+
+.max-w-420 {
+	max-width: 420px;
+}
+
+.max-w-xs {
+	max-width: 575.98px;
+}
+
+.max-w-lg {
+	max-width: 991.98px;
+}
+
+.rounded-tl-bl {
+	border-radius: $border-radius 0 $border-radius 0;
+}
+
+.progress-thin {
+	height: .5rem;
+}
+
+.logcontent {
+	width: 100%;
+}
+
+.formfield {
+	padding: 1rem $spacer;
+	border-bottom: $border-color solid 1px;
+
+	&:last-child {
+		border-bottom: none;
+	}
+}
+
+.focus-none {
+	outline: none !important;
+	box-shadow: none !important;
+}
+
+.field-image-preview {
+	max-height: 5em;
+}
+
+#phpinfotable {
+	table-layout: fixed;
+	word-wrap: break-word;
+}
+
+a {
+	text-decoration: none;
+}
+
+td.text-end {
+	a.btn-sm:not(:last-child),
+	span.btn-sm:not(:last-child){
+		margin-right:.125rem!important;
+	}
+}
+
+@include color-mode(dark) {
+	.table>thead>*>* {
+		background-color: transparent;
+	}
+}
+
+// Table
+@include color-mode(light) {
+	.table {
+		--bs-table-bg: white;
+	}
+}

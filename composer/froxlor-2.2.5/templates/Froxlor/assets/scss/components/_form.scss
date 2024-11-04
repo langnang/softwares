@@ -1,0 +1,36 @@
+.form-control-plaintext {
+	outline: none;
+}
+
+.form-control[readonly] {
+	background-color: $body-tertiary-bg;
+}
+
+.form-floating > .form-control::placeholder {
+	color: revert;
+}
+
+.form-floating > .form-control:not(:focus)::placeholder {
+	color: transparent;
+}
+
+@include color-mode(dark) {
+	.formfield {
+		border-bottom: $border-color-dark solid 1px;
+	}
+	.form-control,
+	.form-select {
+		background-color: $dark-bg;
+	}
+
+	.form-switch {
+		.form-check-input:not(:checked):not(:focus) {
+			background-color: $dark-bg;
+		}
+	}
+
+	.form-control[readonly] {
+		background-color: $body-tertiary-bg-dark;
+	}
+
+}

@@ -1,0 +1,147 @@
+{% macro table(listing) %}
+
+	{% import "Froxlor/table/macros.html.twig" as macros %}
+	{% import "Froxlor/table/pagination.html.twig" as pagination %}
+
+	{% if listing.table.tr|length == 0 %}
+		<div class="alert alert-info" role="alert">
+			<h4 class="alert-heading">{{ lng('admin.note') }}</h4>
+			<p>{{ listing.empty_msg|default(lng('panel.listing_empty'))|raw }}</p>
+		</div>
+	{% else %}
+		<div class="d-flex flex-column align-items-end mt-n2">
+			<div class="rounded-top bg-secondary small py-1 px-2 me-3 opacity-25 text-white">
+				{% if listing.no_search is not defined or (listing.no_search is defined and listing.no_search == false) %}
+					{% if gSearchText is not empty %}
+						<span class="me-2"><a href="{{ linker(listing.self_overview) }}"><i class="fa-solid fa-xmark"></i></a> Filter: <strong>{{ gSearchText }}</strong></span>
+					{% endif %}
+					<span type="button" data-bs-toggle="modal" data-bs-target="#searchColumnsModal-{{ listing.id }}" class="me-2"><i class="fa-solid fa-search"></i></span>
+				{% endif %}
+				<span type="button" data-bs-toggle="modal" data-bs-target="#manageColumnsModal-{{ listing.id }}"><i class="fa-solid fa-cog"></i></span>
+			</div>
+		</div>
+		<div class="card table-responsive">
+			<table class="table table-borderless table-striped align-middle mb-0 px-3">
+				<thead>
+					<tr>
+						{% for key,th in listing.table.th %}
+							{{ pagination.titlesorting(listing.pagination, key, th) }}
+						{% endfor %}
+					</tr>
+				</thead>
+				<tbody>
+					{% for tr in listing.table.tr %}
+						<tr {% if tr.class is defined %} class="{{ tr.class }}" {% endif %}>
+							{% for td in tr.td %}
+								<td class="px-3{% if td.class is defined %} {{ td.class }}{% endif %}">
+									{% if td.data is iterable %}
+										{% if td.data.macro == 'progressbar' %}
+											{{ macros.progressbar(td.data.data) }}
+										{% elseif td.data.macro == 'boolean' %}
+											{{ macros.boolean(td.data.data) }}
+										{% elseif td.data.macro == 'booleanWithInfo' %}
+											{{ macros.booleanWithInfo(td.data.data) }}
+										{% elseif td.data.macro == 'link' %}
+											{{ macros.link(td.data.data) }}
+										{% elseif td.data.macro == 'domainWithSan' %}
+											{{ macros.domainWithSan(td.data.data) }}
+										{% elseif td.data.macro == 'actions' %}
+											{{ macros.actions(td.data.data) }}
+										{% elseif td.data.macro == 'type2fa' %}
+											{{ macros.type2fa(td.data.data) }}
+										{% else %}
+											Table macro '{{ td.data.macro|json_encode }}' is not implemented!
+											Unable to handle this data: {{ td.data|json_encode }}
+										{% endif %}
+									{% else %}
+										{{ td.data|raw }}
+									{% endif %}
+								</td>
+							{% endfor %}
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% if listing.pagination is not empty %}
+				{{ pagination.paging(listing.pagination) }}
+			{% endif %}
+		</div>
+		{# handle potential modal-html if defined by actions #}
+		{% for tr in listing.table.tr %}
+			{% for td in tr.td %}
+				{% if td.data is iterable and td.data.macro == 'actions' %}
+					{{ macros.actions_modal(td.data.data) }}
+				{% endif %}
+			{% endfor %}
+		{% endfor %}
+	{% endif %}
+
+	<!-- Modal -->
+	<div class="modal fade manageColumnsModal" id="manageColumnsModal-{{ listing.id }}" tabindex="-1" aria-labelledby="manageColumnsModalLabel-{{ listing.id }}" aria-hidden="true">
+		<div class="modal-dialog">
+			<form method="POST" class="modal-content" data-listing="{{ listing.id }}">
+				<div class="modal-header">
+					<h5 class="modal-title" id="manageColumnsModalLabel-{{ listing.id }}">{{ lng('panel.managetablecolumnsmodal.title') }}</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p>{{ lng('panel.managetablecolumnsmodal.description') }}</p>
+					{% for key, column in listing.available_columns %}
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="{{ key }}" id="checkColumn{{ key }}" name="columns[{{ key }}]" {{ column.checked ? 'checked' : '' }}>
+							<label class="form-check-label" for="checkColumn{{ key }}">
+								{{ column.label }}
+							</label>
+						</div>
+					{% endfor %}
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-action="select-all">{{ lng('panel.select_all') }}</button>
+					<button type="button" class="btn btn-secondary" data-action="unselect-all">{{ lng('panel.unselect_all') }}</button>
+					<button type="button" class="btn btn-secondary" data-action="reset">{{ lng('panel.default') }}</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ lng('panel.modalclose') }}</button>
+					<button type="submit" class="btn btn-primary">{{ lng('panel.save') }}</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	{% if listing.no_search is not defined or (listing.no_search is defined and listing.no_search == false) %}
+	<!-- Modal -->
+	<div class="modal fade searchColumnsModal" id="searchColumnsModal-{{ listing.id }}" tabindex="-1" aria-labelledby="searchColumnsModalLabel-{{ listing.id }}" aria-hidden="true">
+		<div class="modal-dialog">
+			<form method="GET" class="modal-content" action="{{ linker(listing.self_overview) }}">
+				<div class="modal-header">
+					<h5 class="modal-title" id="searchColumnsModalLabel-{{ listing.id }}">{{ lng('panel.searchtablecolumnsmodal.title') }}</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p>{{ lng('panel.searchtablecolumnsmodal.description') }}</p>
+					<div class="mb-3">
+						<select class="form-select" name="searchfield" id="searchfield">
+						{% for key, column in listing.available_columns %}
+							{% if column.searchable is not defined or (column.searchable is defined and column.searchable == true) %}
+							<option value="{{ key }}" {% if column.isdefaultsearchfield is defined and column.isdefaultsearchfield == true %}selected{% endif %}>{{ column.label }}</option>
+							{% endif %}
+						{% endfor %}
+						</select>
+					</div>
+					<div class="mb-3">
+						<input class="form-control" type="text" name="searchtext" id="searchtext" placeholder="{{ lng('panel.search') }}..." value="" />
+					</div>
+					<input type="hidden" name="page" value="{{ page }}" />
+					{% if listing.listing_search_additional_param is defined and listing.listing_search_additional_param|length > 0 %}
+						{% for fldname,fldval in listing.listing_search_additional_param %}
+							<input type="hidden" name="{{ fldname }}" value="{{ fldval }}" />
+						{% endfor %}
+					{% endif %}
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ lng('panel.modalclose') }}</button>
+					<button type="submit" class="btn btn-primary">{{ lng('panel.search') }}</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	{% endif %}
+{% endmacro %}

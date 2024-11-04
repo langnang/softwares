@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="googlebot" content="nosnippet" />
+
+    <!-- CSS -->
+    <link href="{{ basehref }}templates/Froxlor/assets/css/main.css" rel="stylesheet">
+
+    <!-- Scripts -->
+    <script src="{{ basehref }}templates/Froxlor/assets/js/app.js"></script>
+
+    <title>Froxlor - Error</title>
+</head>
+<body class="min-vh-100 d-flex align-items-center">
+    <div class="container-fluid">
+        <div class="container max-w-lg">
+            <div class="card bg-danger text-white">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        Whoops!
+                    </h4>
+                    <p>It seems you are missing some required files.</p>
+                    <p>Froxlor uses composer for its external requirements. Try the following command to install them:</p>
+                    <pre>cd {{ froxlor_install_dir }} && composer install --no-dev</pre>
+                </div>
+                <div class="card-footer text-end">
+                    <a href="" class="btn btn-primary" title="Click to refresh">Refresh</a>
+                </div>
+            </div>
+        </div>
+        <footer class="py-5 text-center">
+            <span>
+                <img src="{{ basehref }}templates/Froxlor/assets/img/logo_grey.png" alt="Froxlor" />
+                &copy; 2009-{{ current_year }} by <a href="https://www.froxlor.org/" rel="external">the froxlor team</a>
+            </span>
+        </footer>
+    </div>
+</body>
+</html>
