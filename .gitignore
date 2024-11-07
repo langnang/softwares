@@ -9,3 +9,4 @@ package.lock
 pnpm-lock.yaml
 
 *.zip
+*.rar
