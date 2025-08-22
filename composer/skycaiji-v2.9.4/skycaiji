@@ -1,0 +1,6 @@
+#!/usr/bin/env php
+<?php
+// [ 应用入口文件 ]
+require __DIR__.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'skycaiji'.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'common'.DIRECTORY_SEPARATOR.'command'.DIRECTORY_SEPARATOR.'SkycaijiCli.php';
+$_skycaijiCli=new \skycaiji\common\command\SkycaijiCli(__DIR__);
+$_skycaijiCli->start();

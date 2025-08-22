@@ -1,0 +1,34 @@
+name: 🚀 Deploy website on push with FTP
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  skycaiji:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v2
+
+      - name: Install composer dependencies
+        run: composer install
+
+      # - name: Install node dependencies
+      #   run: npm install
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          # ftp server
+          server: ftpupload.net
+          # ftp username
+          username: b7_34048879
+          # ftp password
+          password: ${{ secrets.ftp_password }}
+          # Path to upload to on the server. Must end with trailing slash /
+          server-dir: /skycaiji.22web.org/htdocs/
+          # Upload entire repository
+          path: "./composer/skycaiji-v2.9.4/"

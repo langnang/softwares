@@ -1,0 +1,5 @@
+@CHARSET "UTF-8";
+/*应用中心*/
+.content-wrapper .content-header{display:none;}
+.content-wrapper .content{padding:0;height:100%;overflow:hidden;position:relative;}
+
