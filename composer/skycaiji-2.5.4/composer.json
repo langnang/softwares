@@ -42,7 +42,8 @@
     "preferred-install": "dist",
     "allow-plugins": {
       "symfony/flex": true,
-      "symfony/thanks": true
+      "symfony/thanks": true,
+      "topthink/think-installer": true
     }
   }
 }
