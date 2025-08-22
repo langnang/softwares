@@ -1,4 +1,4 @@
-name: 🚀 Deploy composer on push with FTP
+name: 🚀 Deploy php on push with FTP
 
 on:
   push:
@@ -13,8 +13,8 @@ jobs:
       - name: 🚚 Get latest code
         uses: actions/checkout@v2
 
-      - name: Install composer dependencies
-        run: cd ./composer/skycaiji-v2.9.4 && composer install
+      # - name: Install composer dependencies
+      #   run: cd ./composer/skycaiji-v2.9.4 && composer install
 
       # - name: Install node dependencies
       #   run: npm install
@@ -29,7 +29,7 @@ jobs:
           # ftp password
           password: ${{ secrets.ftp_password }}
           # Upload entire repository
-          local-dir: "./composer/skycaiji-v2.9.4/"
+          local-dir: "./php/typecho-1.1.17.10.30/"
           # Path to upload to on the server. Must end with trailing slash /
-          server-dir: /skycaiji.22web.org/htdocs/
+          server-dir: /typecho.22web.org/htdocs/
           
