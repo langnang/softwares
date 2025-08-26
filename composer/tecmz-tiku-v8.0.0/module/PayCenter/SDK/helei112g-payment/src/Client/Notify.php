@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Payment\Client; use Payment\Common\PayException; use Payment\Config; use Payment\Notify\PayNotifyInterface; use Payment\NotifyContext; class Notify { private static $supportChannel = array(Config::ALI_CHARGE, Config::WX_CHARGE, Config::CMB_CHARGE, 'applepay_upacp'); protected static $instance; protected static function getInstance($S3IJB, $qc0K6) { goto h0lPR; h0lPR: mb_internal_encoding('UTF-8'); goto M3K6O; hCDAZ: return static::$instance; goto W0t0w; QpS9U: try { static::$instance->initNotify($S3IJB, $qc0K6); } catch (PayException $knlzD) { throw $knlzD; } goto hCDAZ; M3K6O: if (is_null(self::$instance)) { static::$instance = new NotifyContext(); } goto QpS9U; W0t0w: } public static function run($S3IJB, $qc0K6, $YHayk) { goto YU4b1; NLdWm: return $BEdDh; goto rNegB; YU4b1: if (!in_array($S3IJB, self::$supportChannel)) { throw new PayException('sdk当前不支持该异步方式，当前仅支持：' . implode(',', self::$supportChannel)); } goto b_NRW; b_NRW: try { $BM5_h = self::getInstance($S3IJB, $qc0K6); $BEdDh = $BM5_h->notify($YHayk); } catch (PayException $knlzD) { throw $knlzD; } goto NLdWm; rNegB: } public static function getNotifyData($S3IJB, $qc0K6) { try { $BM5_h = self::getInstance($S3IJB, $qc0K6); return $BM5_h->getNotifyData(); } catch (PayException $knlzD) { throw $knlzD; } } }

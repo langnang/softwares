@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Question\Core; use ModStart\Core\Dao\ModelUtil; use ModStart\Core\Input\Response; use Module\Question\Util\SuperSearchUtil; use Module\Vendor\Provider\SuperSearch\AbstractSuperSearchBiz; use Module\Vendor\Provider\SuperSearch\AbstractSuperSearchProvider; use Module\Vendor\Provider\SuperSearch\FieldTypes; class QuestionSuperSearchBiz extends AbstractSuperSearchBiz { const NAME = 'question_question'; public function name() { return self::NAME; } public function title() { return '题目'; } public function fields() { return array('id' => array('type' => FieldTypes::F_LONG), 'catId' => array('type' => FieldTypes::F_LONG), 'isOpen' => array('type' => FieldTypes::F_LONG), 'parentId' => array('type' => FieldTypes::F_LONG), 'type' => array('type' => FieldTypes::F_LONG), 'chapterId' => array('type' => FieldTypes::F_LONG), 'tags' => array('type' => FieldTypes::F_LONG_ARRAY), 'questionText' => array('type' => FieldTypes::F_TEXT)); } public function syncBatch(AbstractSuperSearchProvider $qhOVL, $qzh_v) { goto kpKxe; GKX09: $GeXSC['nextId'] = $BEdDh['nextId']; goto myB1s; myB1s: return $GeXSC; goto EwxCL; lM5Sj: $GeXSC = array(); goto oPUTl; oPUTl: $GeXSC['count'] = count($BEdDh['records']); goto GKX09; kpKxe: $BEdDh = ModelUtil::batch('question', $qzh_v, 1000); goto bDZbI; bDZbI: SuperSearchUtil::syncQuestions($BEdDh['records'], false); goto lM5Sj; EwxCL: } }

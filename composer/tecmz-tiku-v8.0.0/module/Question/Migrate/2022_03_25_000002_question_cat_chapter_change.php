@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ use Illuminate\Database\Migrations\Migration; use Illuminate\Database\Schema\Blueprint; use ModStart\Core\Dao\ModelUtil; class QuestionCatChapterChange extends Migration { public function up() { goto AH0wP; pmjRD: ModelUtil::updateAll('question', array('catId' => 1, 'chapterId' => 1, 'isOpen' => true)); goto jLz3L; BPTlq: Schema::table('question_tag_group', function (Blueprint $PpLvp) { $PpLvp->integer('catId')->nullable()->comment(''); $PpLvp->index(array('catId')); }); goto PNJLn; PNJLn: Schema::table('question_tag', function (Blueprint $PpLvp) { $PpLvp->integer('catId')->nullable()->comment(''); $PpLvp->index(array('catId')); }); goto dioW1; BLc6W: ModelUtil::insert('question_chapter', array('id' => 1, 'catId' => 1, 'pid' => 0, 'sort' => 1, 'title' => '分类')); goto pmjRD; AH0wP: Schema::table('question', function (Blueprint $PpLvp) { $PpLvp->integer('catId')->nullable()->comment(''); $PpLvp->integer('chapterId')->nullable()->comment(''); $PpLvp->tinyInteger('isOpen')->nullable()->comment(''); $PpLvp->index(array('catId', 'chapterId')); $PpLvp->index(array('chapterId')); }); goto BPTlq; dioW1: ModelUtil::insert('question_cat', array('id' => 1, 'sort' => 1, 'title' => '题库', 'catShow' => true)); goto BLc6W; jLz3L: ModelUtil::updateAll('question_tag', array('catId' => 1)); goto D9gYd; D9gYd: ModelUtil::updateAll('question_tag_group', array('catId' => 1)); goto EUSEN; EUSEN: } public function down() { } }

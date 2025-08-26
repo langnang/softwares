@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Question\Util; use ModStart\Core\Util\TagUtil; use Module\Vendor\Provider\SuperSearch\AbstractSuperSearchProvider; use Module\Vendor\Provider\SuperSearch\SuperSearchProvider; class SuperSearchUtil { public static function provider() { return SuperSearchProvider::get(modstart_config('Question_SuperSearchProvider')); } public static function syncQuestions($v39Ud, $w16Au = true) { goto SwsdQ; R6K6J: if (empty($qhOVL)) { return; } goto XmxAn; XmxAn: if ($w16Au) { $qhOVL->ensureBucket('question_question'); } goto X03Zt; SwsdQ: $qhOVL = self::provider(); goto R6K6J; X03Zt: foreach ($v39Ud as $NZ_6d) { if (is_string($NZ_6d['tag'])) { $wvdra = TagUtil::string2Array($NZ_6d['tag']); } else { $wvdra = $NZ_6d['tag']; } $qhOVL->upsert('question_question', $NZ_6d['id'], array('id' => intval($NZ_6d['id']), 'isOpen' => intval($NZ_6d['isOpen']), 'parentId' => intval($NZ_6d['parentId']), 'type' => intval($NZ_6d['type']), 'chapterId' => intval($NZ_6d['chapterId']), 'catId' => $NZ_6d['catId'], 'tags' => $wvdra, 'questionText' => $NZ_6d['questionText'])); } goto tWuZV; tWuZV: } }

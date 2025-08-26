@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Payment\Common\Ali\Data; use Payment\Common\PayException; use Payment\Config; class TransData extends AliBaseData { protected function checkDataParam() { goto sOzZB; K4eMM: if (empty($mWQp9) || !in_array($mWQp9, array('ALIPAY_USERID', 'ALIPAY_LOGONID'))) { throw new PayException('请传入收款账户类型'); } goto KBova; Md6_Z: if (empty($F3tdn) || bccomp($F3tdn, 0, 2) !== 1) { throw new PayException('请输入转账金额，且大于0'); } goto EJg2R; cXmJl: if (empty($jDVRk)) { throw new PayException('请传入 商户转账唯一订单号'); } goto K4eMM; VI3Ul: $DfuA7 = $this->remark; goto cXmJl; McPoe: $QjJVK = $this->payee_account; goto o02Bq; bjLbH: $mWQp9 = $this->payee_type; goto McPoe; sOzZB: $jDVRk = $this->trans_no; goto bjLbH; o02Bq: $F3tdn = $this->amount; goto VI3Ul; KBova: if (empty($QjJVK)) { throw new PayException('请传入转账帐号'); } goto Md6_Z; EJg2R: if (bccomp($F3tdn, Config::TRANS_FEE, 2) !== -1 && empty($DfuA7)) { throw new PayException('转账金额大于等于' . Config::TRANS_FEE, '必须设置 remark'); } goto dE_Xi; dE_Xi: } protected function getBizContent() { $KqFED = array('out_biz_no' => $this->trans_no, 'payee_type' => strtoupper($this->payee_type), 'payee_account' => $this->payee_account, 'amount' => $this->amount, 'payer_show_name' => $this->payer_show_name, 'payer_real_name' => $this->payer_real_name, 'payee_real_name' => $this->payee_real_name, 'remark' => $this->remark); return $KqFED; } }

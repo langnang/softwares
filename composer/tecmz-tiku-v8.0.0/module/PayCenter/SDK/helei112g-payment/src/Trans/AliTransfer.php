@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Payment\Trans; use Payment\Common\Ali\AliBaseStrategy; use Payment\Common\Ali\Data\TransData; use Payment\Common\PayException; use Payment\Config; class AliTransfer extends AliBaseStrategy { protected $method = 'alipay.fund.trans.toaccount.transfer'; public function getBuildDataClass() { $this->config->method = $this->method; return TransData::class; } protected function retData(array $GeXSC) { goto F4UHp; mUQFM: return $this->createBackData($eypYa); goto fnP5O; F4UHp: $sx3MN = parent::retData($GeXSC); goto S3yZA; S3yZA: try { $eypYa = $this->sendReq($sx3MN); } catch (PayException $knlzD) { throw $knlzD; } goto mUQFM; fnP5O: } protected function createBackData(array $GeXSC) { goto ULt05; qcY2c: $eypYa = array('is_success' => 'T', 'response' => array('trans_no' => $GeXSC['out_biz_no'], 'transaction_id' => $GeXSC['order_id'], 'pay_date' => $GeXSC['pay_date'], 'channel' => Config::ALI_TRANSFER)); goto rUmlE; rUmlE: return $eypYa; goto QaZXh; ULt05: if ($this->config->returnRaw) { $GeXSC['channel'] = Config::ALI_TRANSFER; return $GeXSC; } goto Ct1gp; Ct1gp: if ($GeXSC['code'] !== '10000') { return $eypYa = array('is_success' => 'F', 'error' => $GeXSC['sub_msg'], 'channel' => Config::ALI_TRANSFER); } goto qcY2c; QaZXh: } }

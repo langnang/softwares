@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Payment\Common\Ali\Data\Charge; use Payment\Common\PayException; class BarChargeData extends ChargeBaseData { protected function getBizContent() { goto OFKON; pvu17: if (!empty($ShsHy)) { $tyTz6 = floor(($ShsHy - strtotime($this->timestamp)) / 60); $tyTz6 > 0 && ($KqFED['timeout_express'] = $tyTz6 . 'm'); } goto kQs01; OFKON: $KqFED = array('out_trade_no' => strval($this->order_no), 'scene' => $this->scene, 'auth_code' => $this->auth_code, 'product_code' => 'FACE_TO_FACE_PAYMENT', 'subject' => strval($this->subject), 'body' => strval($this->body), 'total_amount' => strval($this->amount), 'operator_id' => $this->operator_id, 'store_id' => $this->store_id, 'terminal_id' => $this->terminal_id); goto Rqw5G; kQs01: return $KqFED; goto Ryb7a; Rqw5G: $ShsHy = $this->timeout_express; goto pvu17; Ryb7a: } protected function checkDataParam() { goto Avxiz; N9hSr: if (empty($z362G)) { throw new PayException('请提供支付授权码'); } goto eusYq; pQpFB: $z362G = $this->auth_code; goto DAEl7; DAEl7: if (empty($V6Vz0) || !in_array($V6Vz0, array('bar_code', 'wave_code'))) { throw new PayException('支付场景 scene 必须设置 条码支付：bar_code 声波支付：wave_code'); } goto N9hSr; Avxiz: parent::checkDataParam(); goto IeiJv; IeiJv: $V6Vz0 = $this->scene; goto pQpFB; eusYq: } }

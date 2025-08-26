@@ -1,0 +1,16 @@
+{
+    "name": "Video",
+    "env": [
+        "laravel5",
+        "laravel9"
+    ],
+    "require": [
+        "Vendor:>=1.6.0"
+    ],
+    "title": "简单视频系统",
+    "modstartVersion": ">=2.6.0",
+    "version": "1.4.0",
+    "author": "ModStart",
+    "description": "简单的视频管理系统",
+    "providers": []
+}

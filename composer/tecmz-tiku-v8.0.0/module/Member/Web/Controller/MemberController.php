@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Member\Web\Controller; use Illuminate\Support\Facades\View; use ModStart\Admin\Widget\DashboardItemA; use ModStart\App\Web\Layout\WebPage; use ModStart\Core\Input\Response; use ModStart\Layout\Row; use ModStart\Widget\Box; use Module\Member\Config\MemberHomeIcon; use Module\Member\Support\MemberLoginCheck; class MemberController extends MemberFrameController implements MemberLoginCheck { private $api; public function __construct(\Module\Member\Api\Controller\MemberController $lYtoi) { parent::__construct(); $this->api = $lYtoi; } public function index(WebPage $gETpv) { goto qSOiT; I7h3j: View::share($hA7ug); goto qu3_g; qSOiT: list($Mi0Iq, $EcSV9) = $this->viewPaths('member.index'); goto YRbw_; XkIbh: foreach (MemberHomeIcon::get() as $RLvq6) { $gETpv->append(Box::make(new Row(function (Row $ZUrcV) use($RLvq6) { foreach ($RLvq6['children'] as $ZXH8V) { $WZC9G = isset($ZXH8V['value']) ? $ZXH8V['value'] : null; $ZUrcV->column(array('md' => 2, '' => 4), DashboardItemA::makeIconTitleValueLink($ZXH8V['icon'], $ZXH8V['title'], $WZC9G, $ZXH8V['url'])); } }), $RLvq6['title'])); } goto Qxj16; YRbw_: $gETpv->view($Mi0Iq); goto XkIbh; ANEf4: return $gETpv; goto WxwvQ; Qxj16: $hA7ug = Response::tryGetData($this->api->current()); goto I7h3j; qu3_g: $gETpv->pageTitle('我的'); goto ANEf4; WxwvQ: } }

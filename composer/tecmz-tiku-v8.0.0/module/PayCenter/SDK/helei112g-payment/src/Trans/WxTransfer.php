@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Payment\Trans; use Payment\Common\Weixin\Data\TransferData; use Payment\Common\Weixin\WxBaseStrategy; use Payment\Config; use Payment\Utils\ArrayUtil; class WxTransfer extends WxBaseStrategy { protected $reqUrl = 'https://api.mch.weixin.qq.com/{debug}/mmpaymkttransfers/promotion/transfers'; public function getBuildDataClass() { return TransferData::class; } protected function retData(array $BEdDh) { goto uLiaK; zcDuZ: return $this->createBackData($BEdDh); goto zkNWs; a0iPY: if ($BEdDh['return_code'] != 'SUCCESS') { return $eypYa = array('is_success' => 'F', 'error' => $BEdDh['return_msg'], 'channel' => Config::WX_TRANSFER); } goto SK7YK; SK7YK: if ($BEdDh['result_code'] != 'SUCCESS') { return $eypYa = array('is_success' => 'F', 'error' => $BEdDh['err_code_des'], 'channel' => Config::WX_TRANSFER); } goto zcDuZ; uLiaK: if ($this->config->returnRaw) { $BEdDh['channel'] = Config::WX_TRANSFER; return $BEdDh; } goto a0iPY; zkNWs: } protected function createBackData(array $GeXSC) { $eypYa = array('is_success' => 'T', 'response' => array('trans_no' => $GeXSC['partner_trade_no'], 'transaction_id' => $GeXSC['payment_no'], 'pay_date' => $GeXSC['payment_time'], 'device_info' => ArrayUtil::get($GeXSC, 'device_info', 'WEB'), 'channel' => Config::WX_TRANSFER)); return $eypYa; } protected function verifySign(array $eypYa) { return true; } }

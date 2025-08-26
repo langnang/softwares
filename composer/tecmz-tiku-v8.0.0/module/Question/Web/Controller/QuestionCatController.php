@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Question\Web\Controller; use ModStart\Core\Input\InputPackage; use ModStart\Core\Input\Response; use ModStart\Module\ModuleBaseController; class QuestionCatController extends ModuleBaseController { public function index(\Module\Question\Api\Controller\QuestionController $lYtoi, $oUKOQ) { goto vjt51; vjt51: InputPackage::mergeToInput('catId', $oUKOQ); goto ldrIf; MXn1X: return $this->view('question.cat', $hA7ug); goto QGdeA; ldrIf: $hA7ug = Response::tryGetData($lYtoi->cat()); goto MXn1X; QGdeA: } public function lists(\Module\Question\Api\Controller\QuestionController $lYtoi, $oUKOQ) { goto Nf3sC; jO2gN: return $this->view('question.catList', $hA7ug); goto ABdDs; Nf3sC: $bz1sB = InputPackage::buildFromInput(); goto iNSiQ; Zdr9g: InputPackage::mergeToInput('search', array('chapterId' => $bz1sB->getInteger('chapterId'), 'tagId' => $bz1sB->getTrimString('tagId'), 'keywords' => $bz1sB->getTrimString('keywords'), 'type' => $bz1sB->getTrimString('type'))); goto yqmdK; yqmdK: $hA7ug = Response::tryGetData($lYtoi->lists()); goto jO2gN; iNSiQ: InputPackage::mergeToInput('catId', $oUKOQ); goto Zdr9g; ABdDs: } }

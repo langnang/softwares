@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ use Illuminate\Database\Schema\Blueprint; use Illuminate\Database\Migrations\Migration; class CreateMemberUser extends Migration { public function up() { Schema::create('member_user', function (Blueprint $G_sIl) { $G_sIl->increments('id'); $G_sIl->timestamps(); $G_sIl->string('username', 50)->nullable()->comment('用户名'); $G_sIl->string('phone', 20)->nullable()->comment('手机'); $G_sIl->string('email', 200)->nullable()->comment('邮箱'); $G_sIl->char('password', 32)->nullable()->comment('密码'); $G_sIl->char('passwordSalt', 16)->nullable()->comment('密码Salt'); $G_sIl->timestamp('lastLoginTime')->nullable()->comment('上次登录时间'); $G_sIl->string('lastLoginIp', 20)->nullable()->comment('上次登录Ip'); $G_sIl->boolean('phoneVerified')->nullable()->comment('手机已验证'); $G_sIl->boolean('emailVerified')->nullable()->comment('邮箱已验证'); $G_sIl->string('avatar', 100)->nullable()->comment('头像(小)'); $G_sIl->string('avatarMedium', 100)->nullable()->comment('头像(中)'); $G_sIl->string('avatarBig', 100)->nullable()->comment('头像(大)'); $G_sIl->tinyInteger('gender')->nullable()->comment('性别'); $G_sIl->string('realname', 20)->nullable()->comment('真实姓名'); $G_sIl->string('signature', 200)->nullable()->comment('个性签名'); $G_sIl->index('username'); $G_sIl->index('phone'); $G_sIl->index('email'); }); } public function down() { } }

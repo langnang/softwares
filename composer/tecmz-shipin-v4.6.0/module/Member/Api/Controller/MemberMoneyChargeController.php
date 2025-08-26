@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Member\Api\Controller; use Illuminate\Routing\Controller; use ModStart\Core\Dao\ModelUtil; use ModStart\Core\Exception\BizException; use ModStart\Core\Input\InputPackage; use Module\Member\Auth\MemberUser; use Module\Member\Core\MemberMoneyChargePayCenterBiz; use Module\Member\Support\MemberLoginCheck; use Module\PayCenter\Support\PayCenterPerform; use Module\Vendor\Type\OrderStatus; class MemberMoneyChargeController extends Controller implements MemberLoginCheck { public function submit() { goto qTkGP; HOcs6: $fpmnD = app(PayCenterPerform::class); goto VFaCn; Lv4Sl: $zAOU6 = ModelUtil::insert('member_money_charge_order', array('status' => OrderStatus::WAIT_PAY, 'memberUserId' => MemberUser::id(), 'money' => $WRPnK)); goto QIU6e; qTkGP: $nIp2z = InputPackage::buildFromInput(); goto GjERc; JrxlO: BizException::throwsIf('金额最大为1,000,000元', $WRPnK > 1000000); goto Lv4Sl; dttLa: BizException::throwsIf('金额最少为0.01元', $WRPnK < 0.01); goto JrxlO; QIU6e: BizException::throwsIf('请安装 PayCenter 模块', !modstart_module_enabled('PayCenter')); goto HOcs6; VFaCn: return $fpmnD->performSubmitOrder(MemberMoneyChargePayCenterBiz::NAME, $zAOU6['id'], $zAOU6['money'], '钱包充值'); goto IWVKP; GjERc: $WRPnK = $nIp2z->getDecimal('money'); goto dttLa; IWVKP: } }

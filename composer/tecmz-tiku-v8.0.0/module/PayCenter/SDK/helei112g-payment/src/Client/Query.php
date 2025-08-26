@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Payment\Client; use Payment\Common\PayException; use Payment\Config; use Payment\QueryContext; class Query { protected static $supportType = array(Config::ALI_CHARGE, Config::ALI_REFUND, Config::ALI_TRANSFER, Config::ALI_RED, Config::WX_CHARGE, Config::WX_REFUND, Config::WX_RED, Config::WX_TRANSFER, Config::CMB_CHARGE, Config::CMB_REFUND); protected static $instance; protected static function getInstance($N5bqI, $qc0K6) { goto gPPhm; fJ8hK: if (is_null(self::$instance)) { static::$instance = new QueryContext(); } goto mrvsc; gPPhm: mb_internal_encoding('UTF-8'); goto fJ8hK; R0xpG: return static::$instance; goto voLOb; mrvsc: try { static::$instance->initQuery($N5bqI, $qc0K6); } catch (PayException $knlzD) { throw $knlzD; } goto R0xpG; voLOb: } public static function run($N5bqI, $qc0K6, $wnvz7) { goto mahRo; ci7eG: try { $BM5_h = self::getInstance($N5bqI, $qc0K6); $BEdDh = $BM5_h->query($wnvz7); } catch (PayException $knlzD) { throw $knlzD; } goto PB62L; mahRo: if (!in_array($N5bqI, self::$supportType)) { throw new PayException('sdk当前不支持该类型查询，当前仅支持：' . implode(',', self::$supportType) . __LINE__); } goto ci7eG; PB62L: return $BEdDh; goto SFZRi; SFZRi: } }

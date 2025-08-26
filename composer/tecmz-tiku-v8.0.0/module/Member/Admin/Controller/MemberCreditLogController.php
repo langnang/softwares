@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Member\Admin\Controller; use Illuminate\Routing\Controller; use ModStart\Admin\Concern\HasAdminQuickCRUD; use ModStart\Admin\Layout\AdminCRUDBuilder; use ModStart\Field\AbstractField; use ModStart\Field\AutoRenderedFieldValue; use ModStart\Support\Concern\HasFields; use Module\Member\Util\MemberCmsUtil; class MemberCreditLogController extends Controller { use HasAdminQuickCRUD; protected function crud(AdminCRUDBuilder $cv5kq) { $cv5kq->init('member_credit_log')->field(function ($cv5kq) { $cv5kq->id('id', 'ID'); $cv5kq->display('memberUserId', '用户')->hookRendering(function (AbstractField $QGYmu, $REa1I, $x1Lvn) { return MemberCmsUtil::showFromId($REa1I->memberUserId); }); $cv5kq->display('change', '积分')->hookRendering(function (AbstractField $QGYmu, $REa1I, $x1Lvn) { return AutoRenderedFieldValue::make($REa1I->change > 0 ? '<span class="ub-text-success">+' . $REa1I->change . '</span>' : '<span class="ub-text-danger">' . $REa1I->change . '</span>'); }); $cv5kq->text('remark', '备注'); $cv5kq->display('created_at', L('Created At')); })->title('用户积分流水')->canAdd(false)->canEdit(false)->canDelete(false); } }

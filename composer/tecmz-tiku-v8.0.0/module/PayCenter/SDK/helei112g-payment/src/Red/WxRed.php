@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Payment\Red; use Payment\Common\Weixin\Data\RedData; use Payment\Common\Weixin\WxBaseStrategy; use Payment\Config; use Payment\Utils\ArrayUtil; class WxRed extends WxBaseStrategy { protected $reqUrl = 'https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack'; public function getBuildDataClass() { return RedData::class; } protected function retData(array $BEdDh) { goto Szyb2; LsYba: if ($BEdDh['return_code'] != 'SUCCESS') { return $eypYa = array('is_success' => 'F', 'error' => $BEdDh['return_msg'], 'channel' => Config::WX_RED); } goto M6EBK; Szyb2: if ($this->config->returnRaw) { $BEdDh['channel'] = Config::WX_RED; return $BEdDh; } goto LsYba; ma37r: return $this->createBackData($BEdDh); goto hMf9D; M6EBK: if ($BEdDh['result_code'] != 'SUCCESS') { return $eypYa = array('is_success' => 'F', 'error' => $BEdDh['err_code_des'], 'channel' => Config::WX_RED); } goto ma37r; hMf9D: } protected function createBackData(array $GeXSC) { $eypYa = array('is_success' => 'T', 'response' => array('mch_billno' => $GeXSC['mch_billno'], 'send_listid' => $GeXSC['send_listid'], 'total_amount' => $GeXSC['total_amount'], 're_openid' => $GeXSC['re_openid'], 'wxappid' => $GeXSC['wxappid'], 'mch_id' => $GeXSC['mch_id'], 'channel' => Config::WX_RED)); return $eypYa; } protected function verifySign(array $eypYa) { return true; } }

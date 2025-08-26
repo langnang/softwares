@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Member\Field; use ModStart\Core\Assets\AssetsUtil; use ModStart\Core\Util\ArrayUtil; use ModStart\Field\AutoRenderedFieldValue; use ModStart\Field\Type\FieldRenderMode; use Module\Member\Util\MemberUtil; class AutoRenderedMemberUsersField { public static function make($c9PWm, $oG0tD) { switch ($c9PWm) { case FieldRenderMode::GRID: case FieldRenderMode::DETAIL: $jeqcv = array_map(function ($REa1I) { return '<span class="ub-tag sm">' . htmlspecialchars($REa1I) . '</span>'; }, MemberUtil::listViewName($oG0tD['memberUserIds'])); return AutoRenderedFieldValue::make(join(' ', $jeqcv)); case FieldRenderMode::FORM: goto QdRC0; Vg3N9: $HUANX = array_map(function ($REa1I) { return array('value' => intval($REa1I['id']), 'name' => MemberUtil::viewName($REa1I), 'avatar' => AssetsUtil::fixOrDefault($REa1I['avatar'], 'asset/image/avatar.svg')); }, $HUANX); goto vaP63; QdRC0: $HUANX = MemberUtil::listUsers($oG0tD['memberUserIds']); goto q6TC4; q6TC4: $xi417 = ArrayUtil::flatItemsByKey($HUANX, 'id'); goto Vg3N9; vaP63: return AutoRenderedFieldValue::makeView('module::Member.View.field.memberUsers', array('memberUserIds' => $xi417, 'memberUsers' => $HUANX, 'param' => $oG0tD)); goto ujG18; ujG18: } } }

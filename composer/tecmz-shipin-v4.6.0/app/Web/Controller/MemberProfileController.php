@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace App\Web\Controller; use Illuminate\Support\Facades\View; use ModStart\App\Web\Layout\WebConfigBuilder; use ModStart\Form\Form; use Module\Member\Auth\MemberUser; use Module\Member\Support\MemberLoginCheck; use Module\Member\Type\Gender; class MemberProfileController extends BaseController implements MemberLoginCheck { private $api; private $viewMemberFrame; public function __construct() { goto T4_QK; E29od: View::share('_viewMemberFrame', $this->viewMemberFrame); goto udqB8; udqB8: $this->api = app(\App\Api\Controller\MemberProfileController::class); goto VTRWe; T4_QK: list($this->viewMemberFrame, $DP9JN) = $this->viewPaths('member.frame'); goto E29od; VTRWe: } public function index(WebConfigBuilder $pOiU2) { goto WQPhR; j1IDN: $pOiU2->text('signature', '签名'); goto Qhw20; QvDGv: $pOiU2->text('realname', '姓名'); goto j1IDN; Qhw20: return $pOiU2->perform(MemberUser::user(), function (Form $u2p1D) { return $this->api->basic($u2p1D->dataForming()); }); goto qaoms; b4QW2: $pOiU2->text('username', '用户名')->readonly(true); goto USpqi; yZW_A: $pOiU2->page()->view($this->viewMemberFrame); goto b4QW2; WQPhR: $pOiU2->pageTitle('基本资料'); goto yZW_A; USpqi: $pOiU2->radio('gender', '性别')->optionType(Gender::class); goto QvDGv; qaoms: } }

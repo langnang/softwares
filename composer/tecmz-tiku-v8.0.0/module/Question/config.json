@@ -1,0 +1,42 @@
+{
+    "name": "Question",
+    "title": "题库系统",
+    "require": [
+        "Vendor:>=3.5.0",
+        "Member"
+    ],
+    "env": [
+        "laravel5",
+        "laravel9"
+    ],
+    "types": [
+        "Mobile",
+        "PC",
+        "Admin"
+    ],
+    "tags": [
+        "题库"
+    ],
+    "suggest": [
+        "Paper",
+        "Ad",
+        "Banner",
+        "Partner",
+        "QuestionEnhance",
+        "VipArticle",
+        "SearchCenter",
+        "SuperSearchES"
+    ],
+    "modstartVersion": ">=3.4.0",
+    "version": "2.2.0",
+    "author": "官方",
+    "description": "提供题目基础管理功能",
+    "config": {
+        "viewDisable": [
+            [
+                "switch",
+                "禁用题库"
+            ]
+        ]
+    }
+}

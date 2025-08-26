@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Member\Core; use ModStart\Core\Dao\ModelUtil; use ModStart\Module\ModuleManager; use Module\Member\Util\MemberCreditUtil; use Module\Member\Util\MemberUtil; use Module\Member\Util\MemberVipUtil; use Module\PayCenter\Biz\AbstractPayCenterBiz; use Module\Vendor\Type\OrderStatus; class MemberVipPayCenterBiz extends AbstractPayCenterBiz { const NAME = 'mMemberVip'; public function name() { return self::NAME; } public function title() { return '会员VIP'; } public function onPayed($JoLvH, $XdWpe, $oG0tD = array()) { goto cywHE; gXx_6: if (ModuleManager::getModuleConfigBoolean('Member', 'creditEnable', false)) { $px1LC = MemberVipUtil::get($IfVKl['vipId']); if ($px1LC['creditPresentEnable']) { MemberCreditUtil::change($IfVKl['memberUserId'], $px1LC['creditPresentValue'], '会员VIP赠送积分'); } } goto L_6uR; PnKRk: ModelUtil::update('member_vip_order', array('id' => $JoLvH), array('status' => OrderStatus::COMPLETED)); goto YQxA9; BywUH: $tcTgP['vipExpire'] = $IfVKl['expire']; goto xJWa0; aLRlK: if (empty($IfVKl)) { return; } goto PnKRk; cywHE: $IfVKl = ModelUtil::get('member_vip_order', $JoLvH); goto aLRlK; xJWa0: MemberUtil::update($IfVKl['memberUserId'], $tcTgP); goto gXx_6; YQxA9: $tcTgP = array(); goto qZPgf; qZPgf: $tcTgP['vipId'] = $IfVKl['vipId']; goto BywUH; L_6uR: } }

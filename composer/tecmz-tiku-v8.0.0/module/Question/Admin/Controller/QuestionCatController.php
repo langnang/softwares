@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Question\Admin\Controller; use Illuminate\Routing\Controller; use ModStart\Admin\Concern\HasAdminQuickCRUD; use ModStart\Admin\Layout\AdminCRUDBuilder; use ModStart\Core\Input\Response; use ModStart\Form\Form; use ModStart\Grid\GridFilter; use ModStart\Support\Concern\HasFields; use Module\Question\Util\QuestionCatUtil; class QuestionCatController extends Controller { use HasAdminQuickCRUD; public static $PermitMethodMap = array('all' => '*'); protected function crud(AdminCRUDBuilder $cv5kq) { $cv5kq->init('question_cat')->field(function ($cv5kq) { $cv5kq->id('id', 'ID'); $cv5kq->text('title', '名称'); $cv5kq->switch('catShow', '前台显示')->gridEditable(true)->width(100); $cv5kq->image('bgCover', '背景图'); $cv5kq->display('created_at', L('Created At'))->listable(false); $cv5kq->display('updated_at', L('Updated At'))->listable(false); })->gridFilter(function (GridFilter $qM7YH) { $qM7YH->eq('id', L('ID')); $qM7YH->like('title', L('Title')); })->hookChanged(function (Form $Yfg4L) { QuestionCatUtil::clearCache(); })->defaultOrder(array('sort', 'asc'))->canSort(true)->canShow(false)->title('题库类别'); } public function all() { return Response::generateSuccessData(QuestionCatUtil::all()); } }

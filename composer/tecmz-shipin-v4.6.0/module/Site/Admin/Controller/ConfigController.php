@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Site\Admin\Controller; use Illuminate\Routing\Controller; use ModStart\Admin\Layout\AdminConfigBuilder; use Module\Vendor\Provider\SiteTemplate\SiteTemplateProvider; class ConfigController extends Controller { public function setting(AdminConfigBuilder $Jf1S7) { goto jLH_l; nSIK1: $Jf1S7->text('siteKeywords', '网站关键词'); goto ZkFGB; V0tv_: $Jf1S7->layoutSeparator('网站信息'); goto zq071; M0kaP: $Jf1S7->text('siteBeianGonganLink', '公安备案链接'); goto Leqcd; QmAcq: $Jf1S7->color('sitePrimaryColor', '网站主色调'); goto QmZgS; HxTMl: $Jf1S7->text('siteBeian', 'ICP备案编号'); goto uLZ2_; SiTKY: $Jf1S7->image('siteFavIco', '网站ICO'); goto qv1ij; cRkrc: $Jf1S7->text('siteDomain', '网站域名')->help('如 xxx.com'); goto V8FcL; l6RK1: $Jf1S7->text('siteSlogan', '网站副标题'); goto cRkrc; V0Au0: $Jf1S7->text('siteName', '网站名称'); goto l6RK1; uLZ2_: $Jf1S7->text('siteBeianGonganText', '公安备案文字'); goto M0kaP; V8FcL: $Jf1S7->text('siteUrl', '网站地址')->help('如 https://xxx.com 主要用于后台任务地址转换'); goto nSIK1; ZkFGB: $Jf1S7->textarea('siteDescription', '网站描述'); goto SiTKY; PU3aQ: return $Jf1S7->perform(); goto bDo2a; fNy_V: $Jf1S7->layoutSeparator('备案信息'); goto HxTMl; Leqcd: $Jf1S7->formClass('wide'); goto PU3aQ; QmZgS: $Jf1S7->select('siteTemplate', '网站模板')->options(SiteTemplateProvider::map()); goto fNy_V; zq071: $Jf1S7->image('siteLogo', '网站Logo'); goto V0Au0; jLH_l: $Jf1S7->pageTitle('基本设置'); goto V0tv_; qv1ij: $Jf1S7->layoutSeparator('模板主题'); goto QmAcq; bDo2a: } }

@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Member\Converter; use ModStart\Core\Dao\ModelUtil; use Module\Vendor\Html\HtmlConverterInterceptor; class AtMemberHtmlInterceptor implements HtmlConverterInterceptor { public function convert($Qvp1e) { goto xcorX; xcorX: preg_match_all('/@(.*?):/', $Qvp1e, $EWs61); goto mMIZC; RfQJk: $zuI8A = array(); goto oHf_u; QJY3g: foreach ($HUANX as $w45m7) { $XMQ7s[$w45m7['username']] = $w45m7; } goto peT1F; nPBKl: if (empty($zuI8A)) { return $Qvp1e; } goto QAqNg; H6d22: return $Qvp1e; goto PL0i_; DOP3Y: $XMQ7s = array(); goto QJY3g; QAqNg: $HUANX = ModelUtil::model('member_user')->whereIn('username', array_values($zuI8A))->get()->toArray(); goto AAwsf; mMIZC: if (empty($EWs61[1])) { return $Qvp1e; } goto RfQJk; peT1F: foreach ($zuI8A as $RAcH4 => $O_j5y) { goto VUu9H; VUu9H: if (empty($XMQ7s[$O_j5y])) { continue; } goto I42e4; I42e4: $D5bwW = str_replace('{id}', $XMQ7s[$O_j5y]['id'], '/member/{id}'); goto DkTzQ; DkTzQ: $Qvp1e = str_replace($RAcH4, '<a href="' . $D5bwW . '" target="_blank">@' . $XMQ7s[$O_j5y]['username'] . '</a>: ', $Qvp1e); goto U5BOj; U5BOj: } goto H6d22; oHf_u: foreach ($EWs61[1] as $x1Lvn => $O_j5y) { goto c0vV2; c0vV2: $O_j5y = trim($O_j5y); goto vsuN6; vsuN6: if (empty($O_j5y)) { continue; } goto hJ71o; hJ71o: $zuI8A[$EWs61[0][$x1Lvn]] = $O_j5y; goto WDcd0; WDcd0: } goto nPBKl; AAwsf: if (empty($HUANX)) { return $Qvp1e; } goto DOP3Y; PL0i_: } }

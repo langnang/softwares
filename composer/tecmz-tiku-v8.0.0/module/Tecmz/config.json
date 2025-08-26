@@ -1,0 +1,22 @@
+{
+    "name": "Tecmz",
+    "title": "魔众服务",
+    "require": [
+        "Vendor"
+    ],
+    "env": [
+        "laravel5",
+        "laravel9"
+    ],
+    "types": [
+        "Admin"
+    ],
+    "tags": [
+        "魔众"
+    ],
+    "version": "1.0.0",
+    "author": "ModStart",
+    "description": "提供魔众系列软件在线授权和升级相关服务",
+    "config": {
+    }
+}

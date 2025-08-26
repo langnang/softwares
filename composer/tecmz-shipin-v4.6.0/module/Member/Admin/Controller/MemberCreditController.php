@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Member\Admin\Controller; use Illuminate\Routing\Controller; use ModStart\Admin\Auth\AdminPermission; use ModStart\Admin\Layout\AdminDialogPage; use ModStart\Core\Dao\ModelUtil; use ModStart\Core\Input\InputPackage; use ModStart\Core\Input\Response; use ModStart\Core\Util\CRUDUtil; use ModStart\Form\Form; use Module\Member\Util\MemberCreditUtil; class MemberCreditController extends Controller { public static $PermitMethodMap = array('*' => '\\Module\\Member\\Admin\\Controller\\MemberController@index'); public function charge(AdminDialogPage $H1G2d) { goto aTt3f; INu0A: $oqTbu = Form::make(''); goto tHGWX; IGlXY: return $H1G2d->pageTitle('积分充值')->body($oqTbu)->handleForm($oqTbu, function (Form $oqTbu) use($XK7hT) { AdminPermission::demoCheck(); $WAiaw = $oqTbu->dataForming(); ModelUtil::transactionBegin(); MemberCreditUtil::change($XK7hT, $WAiaw['change'], $WAiaw['remark']); ModelUtil::transactionCommit(); return Response::redirect(CRUDUtil::jsDialogCloseAndParentRefresh()); }); goto bDTIv; tHGWX: $oqTbu->display('_total', '总积分')->value(MemberCreditUtil::getTotal($XK7hT))->addable(true); goto j5Vl0; O_N4C: $oqTbu->showSubmit(false)->showReset(false); goto IGlXY; aTt3f: $XK7hT = InputPackage::buildFromInput()->getInteger('memberUserId'); goto INu0A; j5Vl0: $oqTbu->number('change', '积分变更')->help('负数表示减少')->required(); goto fEf47; fEf47: $oqTbu->text('remark', '说明')->defaultValue('系统变更')->required(); goto O_N4C; bDTIv: } }

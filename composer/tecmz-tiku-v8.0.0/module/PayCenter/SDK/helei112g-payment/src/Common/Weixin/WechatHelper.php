@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Payment\Common\Weixin; use GuzzleHttp\Client; use Payment\Common\PayException; use Payment\Common\Weixin\Data\WxBaseData; use Payment\Common\WxConfig; use Payment\Utils\Curl; use Payment\Utils\DataParser; use Payment\Utils\StrUtil; class WechatHelper extends WxBaseData { const SANDBOX_URL = 'https://api.mch.weixin.qq.com/sandboxnew/pay/getsignkey'; public function getSandboxSignKey() { goto Os4Tv; PetBj: $m7iz2 = array('body' => $Fc2BM, 'http_errors' => false); goto qsOt3; Os4Tv: $this->setSign(); goto Qw3L8; iXCDF: $QkJ1i = new Client(array('timeout' => '10.0')); goto PetBj; qsOt3: $tYsZE = $QkJ1i->request('POST', self::SANDBOX_URL, $m7iz2); goto KUrgf; W36iw: $OuCnz = self::SANDBOX_URL; goto iXCDF; Qw3L8: $Fc2BM = DataParser::toXml($this->getData()); goto W36iw; KUrgf: if ($tYsZE->getStatusCode() != '200') { throw new PayException('网络发生错误，请稍后再试curl返回码：' . $tYsZE->getReasonPhrase()); } goto algfI; WkmYT: return $eypYa['sandbox_signkey']; goto seBaa; algfI: $eypYa = DataParser::toArray($tYsZE->getBody()->getContents()); goto FL5H6; FL5H6: if (strtoupper($eypYa['return_code']) != 'SUCCESS') { throw new PayException('微信返回错误提示:' . $eypYa['retmsg']); } goto WkmYT; seBaa: } protected function buildData() { $this->retData = array('mch_id' => $this->mchId, 'nonce_str' => StrUtil::getNonceStr()); } protected function checkDataParam() { } }

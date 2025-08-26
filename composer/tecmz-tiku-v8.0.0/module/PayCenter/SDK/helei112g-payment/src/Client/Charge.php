@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Payment\Client; use Payment\ChargeContext; use Payment\Common\PayException; use Payment\Config; class Charge { private static $supportChannel = array(Config::ALI_CHANNEL_APP, Config::ALI_CHANNEL_WAP, Config::ALI_CHANNEL_WEB, Config::ALI_CHANNEL_QR, Config::ALI_CHANNEL_BAR, Config::WX_CHANNEL_APP, Config::WX_CHANNEL_PUB, Config::WX_CHANNEL_QR, Config::WX_CHANNEL_BAR, Config::WX_CHANNEL_WAP, Config::WX_CHANNEL_LITE, Config::CMB_CHANNEL_APP, 'applepay_upacp'); protected static $instance; protected static function getInstance($ghw00, $qc0K6) { goto TFVwP; KbXmE: return static::$instance; goto ANuNW; TFVwP: mb_internal_encoding('UTF-8'); goto R2ys1; Kx3iD: try { static::$instance->initCharge($ghw00, $qc0K6); } catch (PayException $knlzD) { throw $knlzD; } goto KbXmE; R2ys1: if (is_null(self::$instance)) { static::$instance = new ChargeContext(); } goto Kx3iD; ANuNW: } public static function run($ghw00, $qc0K6, $wnvz7) { goto p7Hbn; qvPh3: return $BEdDh; goto C6aAS; p7Hbn: if (!in_array($ghw00, self::$supportChannel)) { throw new PayException('sdk当前不支持该支付渠道，当前仅支持：' . implode(',', self::$supportChannel)); } goto SK6Ld; SK6Ld: try { $BM5_h = self::getInstance($ghw00, $qc0K6); $BEdDh = $BM5_h->charge($wnvz7); } catch (PayException $knlzD) { throw $knlzD; } goto qvPh3; C6aAS: } }

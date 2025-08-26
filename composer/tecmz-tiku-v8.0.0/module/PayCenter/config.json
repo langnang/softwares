@@ -1,0 +1,32 @@
+{
+    "name": "PayCenter",
+    "title": "统一支付中心",
+    "env": [
+        "laravel5",
+        "laravel9"
+    ],
+    "types": [
+        "PC",
+        "Mobile",
+        "Admin"
+    ],
+    "tags": [
+        "支付中心",
+        "支付宝",
+        "支付宝当面付",
+        "微信支付",
+        "微信H5"
+    ],
+    "require": [
+        "Vendor:>=3.4.0"
+    ],
+    "suggest": [
+        "MemberOauth"
+    ],
+    "modstartVersion": ">=3.3.0",
+    "version": "2.2.0",
+    "author": "官方",
+    "description": "提供统一支付结算服务",
+    "providers": [
+    ]
+}

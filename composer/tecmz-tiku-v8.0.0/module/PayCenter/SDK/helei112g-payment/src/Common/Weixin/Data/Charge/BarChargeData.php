@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Payment\Common\Weixin\Data\Charge; use Payment\Common\PayException; use Payment\Utils\ArrayUtil; class BarChargeData extends ChargeBaseData { protected function checkDataParam() { goto QWPVV; vZoe2: if (empty($z362G)) { throw new PayException('扫码支付授权码,必须设置该参数.'); } goto mFLPr; Ve9YS: $z362G = $this->auth_code; goto vZoe2; QWPVV: parent::checkDataParam(); goto Ve9YS; mFLPr: } protected function buildData() { goto GeGOO; WJ8Mz: if ($kkerk && is_array($kkerk)) { $svIJz['store_info'] = $kkerk; } goto WzDoi; GeGOO: $kkerk = $this->scene_info; goto py7BK; aAYHl: $this->retData = ArrayUtil::paraFilter($ja3LF); goto x7YVJ; WzDoi: $ja3LF = array('appid' => trim($this->appId), 'mch_id' => trim($this->mchId), 'device_info' => $this->terminal_id, 'nonce_str' => $this->nonceStr, 'sign_type' => $this->signType, 'body' => trim($this->subject), 'attach' => trim($this->return_param), 'out_trade_no' => trim($this->order_no), 'total_fee' => $this->amount, 'fee_type' => $this->feeType, 'spbill_create_ip' => trim($this->client_ip), 'limit_pay' => $this->limitPay, 'auth_code' => $this->auth_code, 'scene_info' => $svIJz ? json_encode($svIJz, JSON_UNESCAPED_UNICODE) : '', 'sub_appid' => $this->sub_appid, 'sub_mch_id' => $this->sub_mch_id); goto aAYHl; py7BK: $svIJz = array(); goto WJ8Mz; x7YVJ: } }

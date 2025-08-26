@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Payment\Notify; use Payment\Common\ConfigInterface; abstract class NotifyStrategy { protected $config; public final function handle(PayNotifyInterface $FraYe) { goto BR7d3; BR7d3: $eg5z_ = $this->getNotifyData(); goto LvOEl; Z5Gb0: if ($QVe_4 === false) { return $this->replyNotify(false, '返回数据验签失败，可能数据被篡改'); } goto FWEXI; cBDUU: return $this->replyNotify($gSChU, $klZBn); goto tpJ1e; LvOEl: if ($eg5z_ === false) { return $this->replyNotify(false, '获取通知数据失败'); } goto svjUZ; FWEXI: $gSChU = $this->callback($FraYe, $eg5z_); goto mnF77; svjUZ: $QVe_4 = $this->checkNotifyData($eg5z_); goto Z5Gb0; mnF77: if ($gSChU) { $klZBn = 'OK'; } else { $klZBn = '商户逻辑调用出错'; } goto cBDUU; tpJ1e: } protected function callback(PayNotifyInterface $FraYe, array $eg5z_) { goto D1wOY; oWF6H: if ($GeXSC === false) { return false; } goto IQsYK; IQsYK: return $FraYe->notifyProcess($GeXSC); goto EIoNS; D1wOY: $GeXSC = $this->getRetData($eg5z_); goto oWF6H; EIoNS: } public abstract function getNotifyData(); public abstract function checkNotifyData(array $GeXSC); protected abstract function getRetData(array $GeXSC); protected abstract function replyNotify($gSChU, $klZBn = 'OK'); }

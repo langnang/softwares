@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Member\Admin\Controller; use Illuminate\Routing\Controller; use ModStart\Admin\Auth\AdminPermission; use ModStart\Admin\Layout\AdminDialogPage; use ModStart\Core\Dao\ModelUtil; use ModStart\Core\Input\InputPackage; use ModStart\Core\Input\Response; use ModStart\Core\Util\CRUDUtil; use ModStart\Form\Form; use Module\Member\Util\MemberMoneyUtil; class MemberMoneyController extends Controller { public static $PermitMethodMap = array('*' => '\\Module\\Member\\Admin\\Controller\\MemberController@index'); public function charge(AdminDialogPage $gETpv) { goto dTtyy; DliAK: $Yfg4L->decimal('change', '金额')->help('负数表示减少')->required(); goto va2bd; N6x5w: $Yfg4L->showSubmit(false)->showReset(false); goto ffbCO; hcny2: $Yfg4L = Form::make(''); goto S9kkC; ffbCO: return $gETpv->pageTitle('积分充值')->body($Yfg4L)->handleForm($Yfg4L, function (Form $Yfg4L) use($MqkYF) { AdminPermission::demoCheck(); $GeXSC = $Yfg4L->dataForming(); ModelUtil::transactionBegin(); MemberMoneyUtil::change($MqkYF, $GeXSC['change'], $GeXSC['remark']); ModelUtil::transactionCommit(); return Response::redirect(CRUDUtil::jsDialogCloseAndParentRefresh()); }); goto PWLch; dTtyy: $MqkYF = InputPackage::buildFromInput()->getInteger('memberUserId'); goto hcny2; S9kkC: $Yfg4L->display('_total', '余额')->value(MemberMoneyUtil::getTotal($MqkYF))->addable(true); goto DliAK; va2bd: $Yfg4L->text('remark', '说明')->defaultValue('系统变更')->required(); goto N6x5w; PWLch: } }

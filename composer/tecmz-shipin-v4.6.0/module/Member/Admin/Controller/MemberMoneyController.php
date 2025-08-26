@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Member\Admin\Controller; use Illuminate\Routing\Controller; use ModStart\Admin\Auth\AdminPermission; use ModStart\Admin\Layout\AdminDialogPage; use ModStart\Core\Dao\ModelUtil; use ModStart\Core\Input\InputPackage; use ModStart\Core\Input\Response; use ModStart\Core\Util\CRUDUtil; use ModStart\Form\Form; use Module\Member\Util\MemberMoneyUtil; class MemberMoneyController extends Controller { public static $PermitMethodMap = array('*' => '\\Module\\Member\\Admin\\Controller\\MemberController@index'); public function charge(AdminDialogPage $H1G2d) { goto kr_uI; nO9QZ: $oqTbu->showSubmit(false)->showReset(false); goto GCqpJ; jIvvT: $oqTbu->decimal('change', '金额')->help('负数表示减少')->required(); goto wVqk1; wVqk1: $oqTbu->text('remark', '说明')->defaultValue('系统变更')->required(); goto nO9QZ; cG_A1: $oqTbu = Form::make(''); goto E6kNJ; GCqpJ: return $H1G2d->pageTitle('积分充值')->body($oqTbu)->handleForm($oqTbu, function (Form $oqTbu) use($XK7hT) { AdminPermission::demoCheck(); $WAiaw = $oqTbu->dataForming(); ModelUtil::transactionBegin(); MemberMoneyUtil::change($XK7hT, $WAiaw['change'], $WAiaw['remark']); ModelUtil::transactionCommit(); return Response::redirect(CRUDUtil::jsDialogCloseAndParentRefresh()); }); goto wdUfJ; E6kNJ: $oqTbu->display('_total', '余额')->value(MemberMoneyUtil::getTotal($XK7hT))->addable(true); goto jIvvT; kr_uI: $XK7hT = InputPackage::buildFromInput()->getInteger('memberUserId'); goto cG_A1; wdUfJ: } }

@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Question\Util; use ModStart\Core\Util\HtmlUtil; use ModStart\Field\AbstractField; use ModStart\Field\AutoRenderedFieldValue; use ModStart\Field\Type\FieldRenderMode; use ModStart\Widget\TextDialogRequest; class QuestionAdminUtil { public static function render(AbstractField $QGYmu, $BnEdZ) { switch ($QGYmu->renderMode()) { case FieldRenderMode::DETAIL: goto IOqIw; IOqIw: if (empty($BnEdZ)) { return AutoRenderedFieldValue::make('-'); } goto cRcW0; njQIX: return view('module::Question.View.admin.question.questionView', $dqC_A); goto ZTH3n; cRcW0: $dqC_A = QuestionUtil::getQuestionData($BnEdZ->id); goto njQIX; ZTH3n: default: goto KrIeN; KrIeN: if (empty($BnEdZ)) { return AutoRenderedFieldValue::make('-'); } goto eTAJw; eTAJw: $Qvp1e = self::renderLink($BnEdZ->toArray()); goto Qsypu; Qsypu: return AutoRenderedFieldValue::make($Qvp1e); goto Uw3KM; Uw3KM: } } public static function renderLink($BnEdZ) { goto A111w; f_rLX: $KohLY = modstart_admin_url('question/show', array('_id' => $BnEdZ['id'], '_viewOnly' => 1)); goto zAqNt; WoeaK: $pcfGC = HtmlUtil::text($BnEdZ['question']); goto f_rLX; zAqNt: return TextDialogRequest::make('primary', $pcfGC, $KohLY)->size('big'); goto gngOt; A111w: if (empty($BnEdZ)) { return '-'; } goto WoeaK; gngOt: } }

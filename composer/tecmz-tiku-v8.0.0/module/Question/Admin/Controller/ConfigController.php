@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Question\Admin\Controller; use Illuminate\Routing\Controller; use ModStart\Admin\Layout\AdminConfigBuilder; use ModStart\Module\ModuleManager; use Module\Vendor\Provider\Ocr\OcrProvider; use Module\Vendor\Provider\SuperSearch\SuperSearchProviderType; class ConfigController extends Controller { public function setting(AdminConfigBuilder $cv5kq) { goto KRJEs; wJZ3v: $cv5kq->formClass('wide'); goto GHqKW; STcD6: $cv5kq->text('Question_Slogan', '题库首页标语')->help('默认为「海量题库供您搜索」'); goto L4L7M; L4L7M: $cv5kq->image('Question_HomeBg', '首页搜索背景')->help(''); goto S4gA0; LLuM1: $cv5kq->switch('Question_SearchOcrEnable', '开启OCR搜题')->when('=', true, function ($cv5kq) { $cv5kq->select('Question_SearchOcrProvider', 'OCR搜题驱动')->options(OcrProvider::allDefaultMap()); }); goto wJZ3v; S46Ia: $cv5kq->number('moduleQuestionSearchQuestionMaxPage', '题目搜索最大显示页数')->help('默认为20'); goto STcD6; GHqKW: return $cv5kq->perform(); goto Yaq1Z; cdVSj: $cv5kq->select('Question_SuperSearchProvider', '超级搜索驱动')->optionType(SuperSearchProviderType::class); goto LLuM1; aNZie: $cv5kq->number('moduleQuestionMaxPage', '题目列表最大显示页数')->help('默认为20'); goto S46Ia; SX7j2: $cv5kq->switch('moduleQuestionEnable', '题库功能开启')->help('开启后，用户可不登录查看题目内容，方便搜索引擎收录'); goto aNZie; KRJEs: $cv5kq->pageTitle('题库设置'); goto SX7j2; S4gA0: $cv5kq->text('Question_Title', '题库名称')->help('默认为「题库」'); goto cdVSj; Yaq1Z: } }

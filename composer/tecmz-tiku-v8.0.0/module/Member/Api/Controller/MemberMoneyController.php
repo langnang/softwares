@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Member\Api\Controller; use ModStart\Core\Input\InputPackage; use ModStart\Core\Input\Response; use ModStart\Module\ModuleBaseController; use Module\Member\Auth\MemberUser; use Module\Member\Support\MemberLoginCheck; use Module\Member\Util\MemberMoneyUtil; class MemberMoneyController extends ModuleBaseController implements MemberLoginCheck { public function get() { return Response::generateSuccessData(array('total' => MemberMoneyUtil::getTotal(MemberUser::id()))); } public function log() { goto cp4mK; hIYZt: switch ($S3IJB) { case 'income': $InfBU['whereOperate'] = array('change', '>', '0'); break; case 'payout': $InfBU['whereOperate'] = array('change', '<', '0'); break; } goto wyu39; B5exI: $InfBU = array(); goto cDs4L; K_yEO: return Response::generateSuccessPaginate($bz1sB->getPage(), $bz1sB->getPageSize(), $BfEFC); goto X1asW; cp4mK: $bz1sB = InputPackage::buildFromInput(); goto B5exI; EvXne: $S3IJB = $tfe0V->getTrimString('type'); goto hIYZt; wyu39: $BfEFC = MemberMoneyUtil::paginateLog(MemberUser::id(), $bz1sB->getPage(), $bz1sB->getPageSize(), $InfBU); goto K_yEO; cDs4L: $tfe0V = $bz1sB->getSearchInput(); goto EvXne; X1asW: } }

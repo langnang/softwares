@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Member\Api\Controller; use ModStart\Core\Input\InputPackage; use ModStart\Core\Input\Response; use ModStart\Module\ModuleBaseController; use Module\Member\Auth\MemberUser; use Module\Member\Support\MemberLoginCheck; use Module\Member\Util\MemberMoneyUtil; class MemberMoneyController extends ModuleBaseController implements MemberLoginCheck { public function get() { return Response::generateSuccessData(array('total' => MemberMoneyUtil::getTotal(MemberUser::id()))); } public function log() { goto Qlo8T; gTKFR: return Response::generateSuccessPaginate($nIp2z->getPage(), $nIp2z->getPageSize(), $CkO0l); goto KHvho; Abjjo: switch ($FmHYg) { case 'income': $eMb8v['whereOperate'] = array('change', '>', '0'); break; case 'payout': $eMb8v['whereOperate'] = array('change', '<', '0'); break; } goto eMx_c; eMx_c: $CkO0l = MemberMoneyUtil::paginateLog(MemberUser::id(), $nIp2z->getPage(), $nIp2z->getPageSize(), $eMb8v); goto gTKFR; Qlo8T: $nIp2z = InputPackage::buildFromInput(); goto zeL4z; tPRbc: $FmHYg = $FEHsZ->getTrimString('type'); goto Abjjo; igQ59: $FEHsZ = $nIp2z->getSearchInput(); goto tPRbc; zeL4z: $eMb8v = array(); goto igQ59; KHvho: } }

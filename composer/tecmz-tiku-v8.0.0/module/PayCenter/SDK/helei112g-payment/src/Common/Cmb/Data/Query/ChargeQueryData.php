@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Payment\Common\Cmb\Data\Query; use Payment\Common\Cmb\Data\CmbBaseData; use Payment\Common\PayException; class ChargeQueryData extends CmbBaseData { protected function checkDataParam() { goto WFhtF; tYacM: $S17yg = $this->date; goto Xsccm; ETsK7: if (empty($S17yg) || mb_strlen($S17yg) !== 8) { throw new PayException('商户订单日期必须提供,格式：yyyyMMdd'); } goto rJpBu; oXzOv: $OSWtq = $this->transaction_id; goto tYacM; WFhtF: parent::checkDataParam(); goto oXzOv; Xsccm: $AdwZD = $this->out_trade_no; goto ETsK7; rJpBu: if ($OSWtq && mb_strlen($OSWtq) === 20) { $this->type = 'A'; } elseif ($AdwZD && mb_strlen($OSWtq) <= 32) { $this->type = 'B'; } else { throw new PayException('必须设置商户订单信息或者招商流水号'); } goto k2koy; k2koy: } protected function getReqData() { $sx3MN = array('dateTime' => $this->dateTime, 'branchNo' => $this->branchNo, 'merchantNo' => $this->merchantNo, 'type' => $this->type, 'bankSerialNo' => $this->transaction_id ? $this->transaction_id : '', 'date' => $this->date ? $this->date : '', 'orderNo' => $this->out_trade_no ? $this->out_trade_no : '', 'operatorNo' => $this->operator_no ? $this->operator_no : ''); return $sx3MN; } }

@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Member\Admin\Controller; use Illuminate\Routing\Controller; use ModStart\Admin\Concern\HasAdminQuickCRUD; use ModStart\Admin\Layout\AdminCRUDBuilder; use ModStart\Field\AbstractField; use ModStart\Field\AutoRenderedFieldValue; use ModStart\Support\Concern\HasFields; use Module\Member\Util\MemberCmsUtil; class MemberMoneyLogController extends Controller { use HasAdminQuickCRUD; protected function crud(AdminCRUDBuilder $Jf1S7) { $Jf1S7->init('member_money_log')->field(function ($Jf1S7) { $Jf1S7->id('id', 'ID'); $Jf1S7->display('memberUserId', '用户')->hookRendering(function (AbstractField $gxoEj, $qlKQK, $mlRDG) { return MemberCmsUtil::showFromId($qlKQK->memberUserId); }); $Jf1S7->display('change', '金额')->hookRendering(function (AbstractField $gxoEj, $qlKQK, $mlRDG) { return AutoRenderedFieldValue::make($qlKQK->change > 0 ? '<span class="ub-text-success">+' . $qlKQK->change . '</span>' : '<span class="ub-text-danger">' . $qlKQK->change . '</span>'); }); $Jf1S7->text('remark', '备注'); $Jf1S7->display('created_at', L('Created At')); })->title('用户钱包流水')->canAdd(false)->canEdit(false)->canDelete(false); } }

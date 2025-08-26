@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Member\Api\Controller; use Illuminate\Routing\Controller; use ModStart\Core\Dao\ModelUtil; use ModStart\Core\Exception\BizException; use ModStart\Core\Input\InputPackage; use Module\Member\Auth\MemberUser; use Module\Member\Core\MemberMoneyChargePayCenterBiz; use Module\Member\Support\MemberLoginCheck; use Module\PayCenter\Support\PayCenterPerform; use Module\Vendor\Type\OrderStatus; class MemberMoneyChargeController extends Controller implements MemberLoginCheck { public function submit() { goto RYEAq; sTAya: BizException::throwsIf('金额最大为1,000,000元', $HWmk2 > 1000000); goto atakD; GmC04: BizException::throwsIf('金额最少为0.01元', $HWmk2 < 0.01); goto sTAya; atakD: $IfVKl = ModelUtil::insert('member_money_charge_order', array('status' => OrderStatus::WAIT_PAY, 'memberUserId' => MemberUser::id(), 'money' => $HWmk2)); goto s9W1L; EosMW: $HWmk2 = $bz1sB->getDecimal('money'); goto GmC04; RXHOr: $avIN5 = app(PayCenterPerform::class); goto jnBMe; RYEAq: $bz1sB = InputPackage::buildFromInput(); goto EosMW; jnBMe: return $avIN5->performSubmitOrder(MemberMoneyChargePayCenterBiz::NAME, $IfVKl['id'], $IfVKl['money'], '钱包充值'); goto f5n2z; s9W1L: BizException::throwsIf('请安装 PayCenter 模块', !modstart_module_enabled('PayCenter')); goto RXHOr; f5n2z: } }

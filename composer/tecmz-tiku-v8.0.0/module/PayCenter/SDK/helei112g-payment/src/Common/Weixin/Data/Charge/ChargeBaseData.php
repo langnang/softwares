@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Payment\Common\Weixin\Data\Charge; use Payment\Common\PayException; use Payment\Common\Weixin\Data\WxBaseData; use Payment\Config; abstract class ChargeBaseData extends WxBaseData { protected function checkDataParam() { goto diJOz; tpFZb: if (bccomp($F3tdn, Config::PAY_MIN_FEE, 2) === -1) { throw new PayException('支付金额不能低于 ' . Config::PAY_MIN_FEE . ' 元'); } goto rv1PB; OBim5: $yXTtD = $this->subject; goto HxiRZ; sCeWH: if ($this->timeout_express - strtotime($this->timeStart) < 5) { throw new PayException('必须设置订单过期时间,且需要大于5分钟.如果不正确请检查是否正确设置时区'); } else { $this->timeout_express = date('YmdHis', $this->timeout_express); } goto v7PJX; DDl2X: $bu1HO = $this->client_ip; goto EKY7G; U1ntD: $F3tdn = $this->amount; goto OBim5; diJOz: $AdwZD = $this->order_no; goto U1ntD; HxiRZ: $VhHmv = $this->body; goto XqhLy; EKY7G: if (empty($bu1HO)) { $this->client_ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1'; } goto g6nL3; GLxYf: if (empty($AdwZD) || mb_strlen($AdwZD) > 64) { throw new PayException('订单号不能为空，并且长度不能超过64位'); } goto tpFZb; XqhLy: $u4TnR = $this->terminal_id; goto GLxYf; rv1PB: if (empty($yXTtD) || empty($VhHmv)) { throw new PayException('必须提供商品名称与商品详情'); } goto sCeWH; v7PJX: $this->amount = bcmul($F3tdn, 100, 0); goto DDl2X; g6nL3: if (empty($u4TnR)) { $this->terminal_id = 'WEB'; } goto o77hU; o77hU: } }

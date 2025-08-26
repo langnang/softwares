@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ use Illuminate\Database\Schema\Blueprint; use Illuminate\Database\Migrations\Migration; class CreateMemberUser extends Migration { public function up() { Schema::create('member_user', function (Blueprint $PpLvp) { $PpLvp->increments('id'); $PpLvp->timestamps(); $PpLvp->string('username', 50)->nullable()->comment('用户名'); $PpLvp->string('phone', 20)->nullable()->comment('手机'); $PpLvp->string('email', 200)->nullable()->comment('邮箱'); $PpLvp->char('password', 32)->nullable()->comment('密码'); $PpLvp->char('passwordSalt', 16)->nullable()->comment('密码Salt'); $PpLvp->timestamp('lastLoginTime')->nullable()->comment('上次登录时间'); $PpLvp->string('lastLoginIp', 20)->nullable()->comment('上次登录Ip'); $PpLvp->boolean('phoneVerified')->nullable()->comment('手机已验证'); $PpLvp->boolean('emailVerified')->nullable()->comment('邮箱已验证'); $PpLvp->string('avatar', 100)->nullable()->comment('头像(小)'); $PpLvp->string('avatarMedium', 100)->nullable()->comment('头像(中)'); $PpLvp->string('avatarBig', 100)->nullable()->comment('头像(大)'); $PpLvp->tinyInteger('gender')->nullable()->comment('性别'); $PpLvp->string('realname', 20)->nullable()->comment('真实姓名'); $PpLvp->string('signature', 200)->nullable()->comment('个性签名'); $PpLvp->index('username'); $PpLvp->index('phone'); $PpLvp->index('email'); }); } public function down() { } }

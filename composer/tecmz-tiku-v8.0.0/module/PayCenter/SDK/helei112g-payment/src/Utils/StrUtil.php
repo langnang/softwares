@@ -1,0 +1,8 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Payment\Utils; class StrUtil { public static function getNonceStr($tEICm = 32) { goto qw5iV; hNjmV: for ($l3Jim = 0; $l3Jim < $tEICm; $l3Jim++) { $Lv50i .= substr($Uicre, mt_rand(0, strlen($Uicre) - 1), 1); } goto XTQJl; XTQJl: return $Lv50i; goto VkVUd; qw5iV: $Uicre = 'abcdefghijklmnopqrstuvwxyz0123456789'; goto TvGBN; TvGBN: $Lv50i = ''; goto hNjmV; VkVUd: } public static function characet($Lv50i, $qNZDA) { goto rbdaD; rbdaD: if (empty($Lv50i)) { return $Lv50i; } goto ulMEP; t0FaX: return $Lv50i; goto dG1qt; ulMEP: if (strcasecmp('UTF-8', $qNZDA) != 0) { $Lv50i = mb_convert_encoding($Lv50i, $qNZDA, 'UTF-8'); } goto t0FaX; dG1qt: } public static function String2Hex($rlEms) { goto A5xTA; lnqGt: return $QHc3Y; goto UbpRF; wWZ3o: for ($l3Jim = 0; $l3Jim < $XW55u; $l3Jim++) { $QHc3Y .= dechex(ord($rlEms[$l3Jim])); } goto lnqGt; JvJZp: $XW55u = strlen($rlEms); goto wWZ3o; A5xTA: $QHc3Y = ''; goto JvJZp; UbpRF: } public static function getRsaKeyValue($Mlv3V, $S3IJB = 'private') { goto wOIkx; wOIkx: $FCGKI = $Mlv3V; goto KqGPB; lmB2_: $LZg65 = chunk_split(base64_encode($FCGKI), 64, '
+'); goto xAmz1; KqGPB: if (empty($FCGKI)) { return null; } goto TL9Vd; TL9Vd: $FCGKI = str_replace(PHP_EOL, '', $FCGKI); goto LNv7n; lHkt3: return $LZg65; goto yJCX2; LNv7n: if ($S3IJB === 'private') { $K_RSH = '-----BEGIN RSA PRIVATE KEY-----'; $KuGji = '-----END RSA PRIVATE KEY-----'; } else { $K_RSH = '-----BEGIN PUBLIC KEY-----'; $KuGji = '-----END PUBLIC KEY-----'; } goto lmB2_; xAmz1: $LZg65 = $K_RSH . PHP_EOL . $FCGKI . PHP_EOL . $KuGji; goto lHkt3; yJCX2: } }

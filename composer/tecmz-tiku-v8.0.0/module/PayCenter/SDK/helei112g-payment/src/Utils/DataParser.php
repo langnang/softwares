@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Payment\Utils; class DataParser { public static function toXml($vjyaQ) { goto IB2z4; L31hq: $Fc2BM .= '</xml>'; goto eCz9V; IB2z4: if (!is_array($vjyaQ) || count($vjyaQ) <= 0) { return false; } goto a1wp0; a1wp0: $Fc2BM = '<xml>'; goto mQPP8; mQPP8: foreach ($vjyaQ as $Mlv3V => $o48Br) { if (is_numeric($o48Br)) { $Fc2BM .= '<' . $Mlv3V . '>' . $o48Br . '</' . $Mlv3V . '>'; } else { $Fc2BM .= '<' . $Mlv3V . '><![CDATA[' . $o48Br . ']]></' . $Mlv3V . '>'; } } goto L31hq; eCz9V: return $Fc2BM; goto TRTuw; TRTuw: } public static function toArray($Fc2BM) { goto xEazh; VXHso: $USV42 = xml_parser_create(); goto jjZZo; xEazh: if (!$Fc2BM) { return false; } goto VXHso; cRpC9: libxml_disable_entity_loader(true); goto WK36z; jjZZo: if (!xml_parse($USV42, $Fc2BM, true)) { xml_parser_free($USV42); return false; } goto cRpC9; WK36z: $GeXSC = json_decode(json_encode(simplexml_load_string($Fc2BM, 'SimpleXMLElement', LIBXML_NOCDATA)), true); goto uSene; uSene: return $GeXSC; goto L3CnI; L3CnI: } public static function toQRimg($eZv6D, $yi7LM = '150', $Zolt2 = 'L', $v_kfG = '0') { $YTxMP = urlencode($eZv6D); return "http://chart.apis.google.com/chart?chs={$yi7LM}x{$yi7LM}&cht=qr&chld={$Zolt2}|{$v_kfG}&chl={$YTxMP}"; } }

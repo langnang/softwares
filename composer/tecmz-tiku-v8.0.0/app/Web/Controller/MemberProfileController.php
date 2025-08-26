@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace App\Web\Controller; use Illuminate\Support\Facades\View; use ModStart\App\Web\Layout\WebConfigBuilder; use ModStart\Form\Form; use Module\Member\Auth\MemberUser; use Module\Member\Support\MemberLoginCheck; use Module\Member\Type\Gender; class MemberProfileController extends BaseController implements MemberLoginCheck { private $api; private $viewMemberFrame; public function __construct() { goto W8NrF; tVtYu: $this->api = app(\App\Api\Controller\MemberProfileController::class); goto H7Sd7; GZOdO: View::share('_viewMemberFrame', $this->viewMemberFrame); goto tVtYu; W8NrF: list($this->viewMemberFrame, $K1nV_) = $this->viewPaths('member.frame'); goto GZOdO; H7Sd7: } public function index(WebConfigBuilder $IjNDU) { goto E7Drr; DOgAF: $IjNDU->radio('gender', '性别')->optionType(Gender::class); goto c_jFk; c_jFk: $IjNDU->text('realname', '姓名'); goto jyOfc; E7Drr: $IjNDU->pageTitle('基本资料'); goto pXRCf; jyOfc: $IjNDU->text('signature', '签名'); goto I3svx; FI00G: $IjNDU->text('username', '用户名')->readonly(true); goto DOgAF; I3svx: return $IjNDU->perform(MemberUser::user(), function (Form $BJjCq) { return $this->api->basic($BJjCq->dataForming()); }); goto SmADM; pXRCf: $IjNDU->page()->view($this->viewMemberFrame); goto FI00G; SmADM: } }

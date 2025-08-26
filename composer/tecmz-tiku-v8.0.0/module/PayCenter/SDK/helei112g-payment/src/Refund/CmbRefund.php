@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Payment\Refund; use Payment\Common\Cmb\CmbBaseStrategy; use Payment\Common\Cmb\Data\RefundData; use Payment\Common\CmbConfig; use Payment\Config; class CmbRefund extends CmbBaseStrategy { public function getBuildDataClass() { goto Jh9Nj; Jh9Nj: $this->config->getewayUrl = 'https://payment.ebank.cmbchina.com/NetPayment/BaseHttp.dll?DoRefund'; goto akl7s; akl7s: if ($this->config->useSandbox) { $this->config->getewayUrl = 'http://121.15.180.66:801/NetPayment_dl/BaseHttp.dll?DoRefund'; } goto NDwse; NDwse: return RefundData::class; goto Vww_U; Vww_U: } protected function retData(array $BEdDh) { goto bHQlH; bHQlH: $hBfCc = json_encode($BEdDh, JSON_UNESCAPED_UNICODE); goto OQJO_; z4RgJ: return $eypYa; goto chcbq; LDgS9: if ($this->config->returnRaw) { $av4Aj['channel'] = Config::CMB_REFUND; return $av4Aj; } goto n3l7I; S406N: $av4Aj = $this->sendReq($L2aCU); goto LDgS9; OQJO_: $L2aCU = CmbConfig::REQ_FILED_NAME . '=' . $hBfCc; goto S406N; n3l7I: $eypYa = array('is_success' => 'T', 'response' => array('transaction_id' => $av4Aj['bankSerialNo'], 'order_no' => $BEdDh['reqData']['orderNo'], 'date' => $BEdDh['reqData']['date'], 'refund_no' => trim($av4Aj['refundSerialNo']), 'refund_id' => $av4Aj['refundRefNo'], 'currency' => $av4Aj['currency'], 'refund_fee' => $av4Aj['amount'], 'channel' => Config::CMB_REFUND, 'refund_time' => date('Y-m-d H:i:s', strtotime($av4Aj['bankDate'] . $av4Aj['bankTime'])))); goto z4RgJ; chcbq: } }

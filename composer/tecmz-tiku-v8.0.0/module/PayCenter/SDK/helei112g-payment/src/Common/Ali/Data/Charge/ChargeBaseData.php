@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Payment\Common\Ali\Data\Charge; use Payment\Common\Ali\Data\AliBaseData; use Payment\Common\PayException; use Payment\Config; use Payment\Utils\ArrayUtil; abstract class ChargeBaseData extends AliBaseData { protected function checkDataParam() { goto eiwGN; He2Z8: $J6DVu = $this->goods_type; goto nVxg2; fvsSA: if (!empty($dgMrW) && !is_string($dgMrW)) { throw new PayException('回传参数必须是字符串'); } goto kyt3L; Vwe5U: if (empty($yXTtD)) { throw new PayException('必须提供 商品的标题/交易标题/订单标题/订单关键字 等'); } goto LvXwI; kRE59: $AdwZD = $this->order_no; goto GMAGz; kyt3L: if (!empty($dgMrW)) { $this->return_param = urlencode($dgMrW); } goto v3Be4; vwzMr: if (is_null($J6DVu)) { $this->goods_type = 1; } elseif (!in_array($J6DVu, array(0, 1))) { throw new PayException('商品类型可取值为：0-虚拟类商品  1-实物类商品'); } goto fvsSA; GMAGz: $F3tdn = $this->amount; goto He2Z8; LvXwI: if (empty($AdwZD) || mb_strlen($AdwZD) > 64) { throw new PayException('订单号不能为空，并且长度不能超过64位'); } goto Zr0gQ; eiwGN: $yXTtD = $this->subject; goto kRE59; Zr0gQ: if (bccomp($F3tdn, Config::PAY_MIN_FEE, 2) === -1) { throw new PayException('支付金额不能低于 ' . Config::PAY_MIN_FEE . ' 元'); } goto vwzMr; nVxg2: $dgMrW = $this->return_param; goto Vwe5U; v3Be4: } }

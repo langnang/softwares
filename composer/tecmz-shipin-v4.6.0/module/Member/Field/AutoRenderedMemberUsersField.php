@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Member\Field; use ModStart\Core\Assets\AssetsUtil; use ModStart\Core\Util\ArrayUtil; use ModStart\Field\AutoRenderedFieldValue; use ModStart\Field\Type\FieldRenderMode; use Module\Member\Util\MemberUtil; class AutoRenderedMemberUsersField { public static function make($MUrmj, $EeGOj) { switch ($MUrmj) { case FieldRenderMode::GRID: case FieldRenderMode::DETAIL: $cmKMJ = array_map(function ($qlKQK) { return '<span class="ub-tag sm">' . htmlspecialchars($qlKQK) . '</span>'; }, MemberUtil::listViewName($EeGOj['memberUserIds'])); return AutoRenderedFieldValue::make(join(' ', $cmKMJ)); case FieldRenderMode::FORM: goto POx1m; Gc18V: $xN0Oy = ArrayUtil::flatItemsByKey($Li0Dz, 'id'); goto Bz6HM; POx1m: $Li0Dz = MemberUtil::listUsers($EeGOj['memberUserIds']); goto Gc18V; KjdS8: return AutoRenderedFieldValue::makeView('module::Member.View.field.memberUsers', array('memberUserIds' => $xN0Oy, 'memberUsers' => $Li0Dz, 'param' => $EeGOj)); goto LJbWk; Bz6HM: $Li0Dz = array_map(function ($qlKQK) { return array('value' => intval($qlKQK['id']), 'name' => MemberUtil::viewName($qlKQK), 'avatar' => AssetsUtil::fixOrDefault($qlKQK['avatar'], 'asset/image/avatar.png')); }, $Li0Dz); goto KjdS8; LJbWk: } } }

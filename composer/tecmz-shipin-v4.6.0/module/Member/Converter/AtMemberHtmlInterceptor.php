@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Member\Converter; use ModStart\Core\Dao\ModelUtil; use Module\Vendor\Html\HtmlConverterInterceptor; class AtMemberHtmlInterceptor implements HtmlConverterInterceptor { public function convert($DxTaI) { goto TfPQk; ksROJ: $Li0Dz = ModelUtil::model('member_user')->whereIn('username', array_values($wsjZ1))->get()->toArray(); goto Beqrh; HTzUw: foreach ($wsjZ1 as $fNqEX => $wSgBk) { goto Qwaoy; VDKff: $DxTaI = str_replace($fNqEX, '<a href="' . $i9VoQ . '" target="_blank">@' . $vjIIK[$wSgBk]['username'] . '</a>: ', $DxTaI); goto QKpG4; Qwaoy: if (empty($vjIIK[$wSgBk])) { continue; } goto i1S7p; i1S7p: $i9VoQ = str_replace('{id}', $vjIIK[$wSgBk]['id'], '/member/{id}'); goto VDKff; QKpG4: } goto FyVHO; rDm00: foreach ($Li0Dz as $OYXQL) { $vjIIK[$OYXQL['username']] = $OYXQL; } goto HTzUw; TfPQk: preg_match_all('/@(.*?):/', $DxTaI, $fEGgd); goto gFxCj; gFxCj: if (empty($fEGgd[1])) { return $DxTaI; } goto sIsh7; Beqrh: if (empty($Li0Dz)) { return $DxTaI; } goto LFPLI; y89no: if (empty($wsjZ1)) { return $DxTaI; } goto ksROJ; FyVHO: return $DxTaI; goto QStTF; TXudU: foreach ($fEGgd[1] as $mlRDG => $wSgBk) { goto B5CR1; ByOhU: if (empty($wSgBk)) { continue; } goto W7ipk; W7ipk: $wsjZ1[$fEGgd[0][$mlRDG]] = $wSgBk; goto dwEJE; B5CR1: $wSgBk = trim($wSgBk); goto ByOhU; dwEJE: } goto y89no; LFPLI: $vjIIK = array(); goto rDm00; sIsh7: $wsjZ1 = array(); goto TXudU; QStTF: } }

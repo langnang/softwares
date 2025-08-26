@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Payment\Utils; class Rc4Encrypt { protected $key; public function __construct($Mlv3V) { $this->key = $Mlv3V; } public function setKey($Mlv3V) { $this->key = $Mlv3V; } public function encrypt($GeXSC) { goto l9Xgy; vFOfY: for ($l3Jim = 0; $l3Jim < 256; $l3Jim++) { $Mlv3V[$l3Jim] = ord($this->key[$l3Jim % $Yjuww]); $pcLkS[$l3Jim] = $l3Jim; } goto JDWae; cEEGz: return strtoupper(StrUtil::String2Hex($bTSJn)); goto LNqu4; TfOpe: $Yjuww = strlen($this->key); goto WR5fw; dBXQj: for ($aYvm6 = $STweG = $l3Jim = 0; $l3Jim < $eTm3O; $l3Jim++) { $aYvm6 = ($aYvm6 + 1) % 256; $STweG = ($STweG + $pcLkS[$aYvm6]) % 256; $shpuG = $pcLkS[$aYvm6]; $pcLkS[$aYvm6] = $pcLkS[$STweG]; $pcLkS[$STweG] = $shpuG; $nJFbs = $pcLkS[($pcLkS[$aYvm6] + $pcLkS[$STweG]) % 256]; $bTSJn .= chr(ord($GeXSC[$l3Jim]) ^ $nJFbs); } goto cEEGz; WR5fw: $eTm3O = strlen($GeXSC); goto vFOfY; JDWae: for ($STweG = $l3Jim = 0; $l3Jim < 256; $l3Jim++) { $STweG = ($STweG + $pcLkS[$l3Jim] + $Mlv3V[$l3Jim]) % 256; $shpuG = $pcLkS[$l3Jim]; $pcLkS[$l3Jim] = $pcLkS[$STweG]; $pcLkS[$STweG] = $shpuG; } goto dBXQj; l9Xgy: $bTSJn = $pcLkS[] = $Mlv3V[] = ''; goto TfOpe; LNqu4: } }

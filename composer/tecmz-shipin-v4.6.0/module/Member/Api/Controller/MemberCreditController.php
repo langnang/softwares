@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Member\Api\Controller; use ModStart\Core\Input\InputPackage; use ModStart\Core\Input\Response; use ModStart\Module\ModuleBaseController; use Module\Member\Auth\MemberUser; use Module\Member\Support\MemberLoginCheck; use Module\Member\Util\MemberCreditUtil; class MemberCreditController extends ModuleBaseController implements MemberLoginCheck { public function get() { return Response::generateSuccessData(array('total' => MemberCreditUtil::getTotal(MemberUser::id()))); } public function log() { goto TcvOP; TcvOP: $nIp2z = InputPackage::buildFromInput(); goto QpnFq; jID6L: return Response::generateSuccessPaginate($nIp2z->getPage(), $nIp2z->getPageSize(), $CkO0l); goto F0Bzj; MNydr: $CkO0l = MemberCreditUtil::paginateLog(MemberUser::id(), $nIp2z->getPage(), $nIp2z->getPageSize(), $eMb8v); goto jID6L; t0sUd: $FmHYg = $FEHsZ->getTrimString('type'); goto jRM2K; jRM2K: switch ($FmHYg) { case 'income': $eMb8v['whereOperate'] = array('change', '>', '0'); break; case 'payout': $eMb8v['whereOperate'] = array('change', '<', '0'); break; } goto MNydr; QpnFq: $eMb8v = array(); goto NAKYS; NAKYS: $FEHsZ = $nIp2z->getJsonAsInput('search'); goto t0sUd; F0Bzj: } }

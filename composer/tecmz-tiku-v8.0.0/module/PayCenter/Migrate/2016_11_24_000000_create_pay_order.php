@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ use Illuminate\Database\Schema\Blueprint; use Illuminate\Database\Migrations\Migration; class CreatePayOrder extends Migration { public function up() { Schema::create('pay_order', function (Blueprint $PpLvp) { $PpLvp->increments('id'); $PpLvp->timestamps(); $PpLvp->tinyInteger('status')->nullable()->comment('订单状态'); $PpLvp->string('biz', 20)->nullable()->comment('业务:通常表示在当前系统的支付类型,如 购买订单,用户充值'); $PpLvp->integer('bizId')->nullable()->comment('业务ID:在当前业务下的ID标识'); $PpLvp->string('payType', 20)->nullable()->comment('支付方式'); $PpLvp->string('payOrderId', 64)->nullable()->comment('支付订单ID,通常由支付系统返回'); $PpLvp->decimal('feeTotal', 20, 2)->nullable()->comment('支付金额'); $PpLvp->timestamp('timePayCreated')->nullable()->comment('时间:支付订单创建'); $PpLvp->timestamp('timePay')->nullable()->comment('时间:支付'); $PpLvp->decimal('feeRefund', 20, 2)->nullable()->comment('退款金额'); $PpLvp->timestamp('timeRefundCreated')->nullable()->comment('时间:退款申请'); $PpLvp->timestamp('timeRefundSuccess')->nullable()->comment('时间:退款成功'); $PpLvp->timestamp('timeClosed')->nullable()->comment('时间:订单关闭(未支付)'); $PpLvp->string('param', 400)->nullable()->comment(''); $PpLvp->unique(array('biz', 'bizId')); }); } public function down() { } }

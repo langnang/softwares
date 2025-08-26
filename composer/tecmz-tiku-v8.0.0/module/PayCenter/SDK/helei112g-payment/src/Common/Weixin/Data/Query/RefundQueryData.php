@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Payment\Common\Weixin\Data\Query; use Payment\Common\PayException; use Payment\Common\Weixin\Data\WxBaseData; use Payment\Utils\ArrayUtil; class RefundQueryData extends WxBaseData { protected function buildData() { $this->retData = array('appid' => $this->appId, 'mch_id' => $this->mchId, 'device_info' => $this->terminal_id, 'nonce_str' => $this->nonceStr, 'sign_type' => $this->signType, 'transaction_id' => $this->transaction_id, 'out_trade_no' => $this->out_trade_no, 'out_refund_no' => $this->refund_no, 'refund_id' => $this->refund_id, 'sub_appid' => $this->sub_appid, 'sub_mch_id' => $this->sub_mch_id); $this->retData = ArrayUtil::paraFilter($this->retData); } protected function checkDataParam() { goto J5sRi; HapuN: $KrdSV = $this->refund_id; goto hpGcO; Hoi3A: $vWFlB = $this->refund_no; goto HapuN; hpGcO: if (empty($mWdQm) && empty($AdwZD) && empty($vWFlB) && empty($KrdSV)) { throw new PayException('查询退款  必须提供微信交易号、商户订单号、商户退款单号、微信退款交易号中的一种'); } goto WTB1q; J5sRi: $mWdQm = $this->transaction_id; goto PUO4Z; PUO4Z: $AdwZD = $this->out_trade_no; goto Hoi3A; WTB1q: } }

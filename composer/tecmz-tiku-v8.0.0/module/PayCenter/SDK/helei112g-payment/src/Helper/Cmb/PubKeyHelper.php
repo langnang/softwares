@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Payment\Helper\Cmb; use Payment\Common\Cmb\CmbBaseStrategy; use Payment\Common\Cmb\Data\PubKeyData; use Payment\Common\CmbConfig; use Payment\Config; class PubKeyHelper extends CmbBaseStrategy { public function getBuildDataClass() { goto fMN8a; tqqDY: return PubKeyData::class; goto C33Uf; m6Yle: if ($this->config->useSandbox) { $this->config->getewayUrl = 'http://121.15.180.72/CmbBank_B2B/UI/NetPay/DoBusiness.ashx'; } goto tqqDY; fMN8a: $this->config->getewayUrl = 'https://b2b.cmbchina.com/CmbBank_B2B/UI/NetPay/DoBusiness.ashx'; goto m6Yle; C33Uf: } protected function retData(array $BEdDh) { goto RUhaP; JDzMc: $L2aCU = CmbConfig::REQ_FILED_NAME . '=' . $hBfCc; goto Lv1tk; tZOqx: return $GUixh; goto gqGEI; xOESC: if ($this->config->returnRaw) { $eypYa['channel'] = Config::CMB_PUB_KEY; return $eypYa; } goto c1TMu; Lv1tk: $eypYa = $this->sendReq($L2aCU); goto xOESC; RUhaP: $hBfCc = json_encode($BEdDh, JSON_UNESCAPED_UNICODE); goto JDzMc; c1TMu: $GUixh = array('is_success' => 'T', 'response' => array('pub_key' => $eypYa['fbPubKey'], 'channel' => Config::CMB_PUB_KEY, 'time' => date('Y-m-d H:i:s', strtotime($eypYa['dateTime'])))); goto tZOqx; gqGEI: } }

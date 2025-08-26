@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Member\Core; use ModStart\Core\Dao\ModelUtil; use ModStart\Module\ModuleManager; use Module\Member\Util\MemberCreditUtil; use Module\Member\Util\MemberUtil; use Module\Member\Util\MemberVipUtil; use Module\PayCenter\Biz\AbstractPayCenterBiz; use Module\Vendor\Type\OrderStatus; class MemberVipPayCenterBiz extends AbstractPayCenterBiz { const NAME = 'mMemberVip'; public function name() { return self::NAME; } public function title() { return '会员VIP'; } public function onPayed($ODAmA, $u4xbE, $EeGOj = array()) { goto T2zw8; HDtLQ: $OSIrT = array(); goto oXwzU; T2zw8: $zAOU6 = ModelUtil::get('member_vip_order', $ODAmA); goto N8TQW; lq71o: if (ModuleManager::getModuleConfigBoolean('Member', 'creditEnable', false)) { $x1QoS = MemberVipUtil::get($zAOU6['vipId']); if ($x1QoS['creditPresentEnable']) { MemberCreditUtil::change($zAOU6['memberUserId'], $x1QoS['creditPresentValue'], '会员VIP赠送积分'); } } goto GsL1X; JLAab: MemberUtil::update($zAOU6['memberUserId'], $OSIrT); goto lq71o; oXwzU: $OSIrT['vipId'] = $zAOU6['vipId']; goto zzqs0; N8TQW: if (empty($zAOU6)) { return; } goto Ja6D_; zzqs0: $OSIrT['vipExpire'] = $zAOU6['expire']; goto JLAab; Ja6D_: ModelUtil::update('member_vip_order', array('id' => $ODAmA), array('status' => OrderStatus::COMPLETED)); goto HDtLQ; GsL1X: } }

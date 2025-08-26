@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Payment\Common\Cmb\Data\Query; use Payment\Common\Cmb\Data\CmbBaseData; use Payment\Common\PayException; class RefundQueryData extends CmbBaseData { protected function checkDataParam() { goto JAaPu; gzVLV: if (empty($S17yg)) { throw new PayException('商户退款日期，格式：yyyyMMdd'); } goto Z4glr; to3zb: $S17yg = $this->date; goto pH3Hm; JAaPu: parent::checkDataParam(); goto mzx2T; gR0Cn: $vWFlB = $this->refund_no; goto gzVLV; mzx2T: $AdwZD = $this->out_trade_no; goto to3zb; pH3Hm: $KrdSV = $this->refund_id; goto gR0Cn; Z4glr: if (!empty($KrdSV)) { goto p1u2s; p1u2s: $this->out_trade_no = ''; goto PhZDQ; PhZDQ: $this->refund_no = ''; goto qa5us; qa5us: $this->type = 'A'; goto E8AxO; E8AxO: } elseif (!empty($AdwZD) && !empty($vWFlB)) { $this->refund_id = ''; $this->type = 'B'; } elseif (!empty($AdwZD)) { goto y2N3u; YsSAM: $this->type = 'C'; goto W0Sjq; y2N3u: $this->refund_id = ''; goto LVw4i; LVw4i: $this->refund_no = ''; goto YsSAM; W0Sjq: } else { throw new PayException('请设置需要查询的商户订单号'); } goto H1_7h; H1_7h: } protected function getReqData() { $sx3MN = array('dateTime' => $this->dateTime, 'branchNo' => $this->branchNo, 'merchantNo' => $this->merchantNo, 'type' => $this->type, 'orderNo' => $this->out_trade_no ? $this->out_trade_no : '', 'date' => $this->date, 'merchantSerialNo' => $this->refund_no ? $this->refund_no : '', 'bankSerialNo' => $this->refund_id ? $this->refund_id : ''); return $sx3MN; } }

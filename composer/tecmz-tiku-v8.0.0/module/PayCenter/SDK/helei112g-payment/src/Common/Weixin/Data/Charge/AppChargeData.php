@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Payment\Common\Weixin\Data\Charge; use Payment\Utils\ArrayUtil; class AppChargeData extends ChargeBaseData { protected function buildData() { goto D9tui; D9tui: $kkerk = $this->scene_info; goto PclFq; Wl9H4: $this->retData = ArrayUtil::paraFilter($ja3LF); goto syDvl; PclFq: $svIJz = array(); goto rFHqC; rFHqC: if ($kkerk && is_array($kkerk)) { $svIJz['store_info'] = $kkerk; } goto I6lYQ; I6lYQ: $ja3LF = array('appid' => trim($this->appId), 'mch_id' => trim($this->mchId), 'device_info' => $this->terminal_id, 'nonce_str' => $this->nonceStr, 'sign_type' => $this->signType, 'body' => trim($this->subject), 'attach' => trim($this->return_param), 'out_trade_no' => trim($this->order_no), 'fee_type' => $this->feeType, 'total_fee' => $this->amount, 'spbill_create_ip' => trim($this->client_ip), 'time_start' => $this->timeStart, 'time_expire' => $this->timeout_express, 'notify_url' => $this->notifyUrl, 'trade_type' => $this->tradeType, 'limit_pay' => $this->limitPay, 'scene_info' => $svIJz ? json_encode($svIJz, JSON_UNESCAPED_UNICODE) : '', 'sub_appid' => $this->sub_appid, 'sub_mch_id' => $this->sub_mch_id); goto Wl9H4; syDvl: } }

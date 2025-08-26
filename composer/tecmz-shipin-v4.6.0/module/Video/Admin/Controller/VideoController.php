@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Video\Admin\Controller; use Illuminate\Routing\Controller; use ModStart\Admin\Concern\HasAdminQuickCRUD; use ModStart\Admin\Layout\AdminCRUDBuilder; use ModStart\Form\Form; use ModStart\Grid\GridFilter; use ModStart\Support\Concern\HasFields; use Module\Video\Util\VideoUtil; class VideoController extends Controller { use HasAdminQuickCRUD; protected function crud(AdminCRUDBuilder $Jf1S7) { $Jf1S7->init('video')->field(function ($Jf1S7) { $Jf1S7->id('id', 'ID'); $Jf1S7->select('categoryId', '分类')->optionModelTree('video_category', 'id', 'pid', 'name'); $Jf1S7->text('title', '标题'); $Jf1S7->image('cover', '封面'); $Jf1S7->switch('isShowHome', '主页显示'); $Jf1S7->textarea('summary', '摘要'); $Jf1S7->video('url', '视频源')->listable(false); $Jf1S7->display('created_at', L('Created At'))->listable(false); $Jf1S7->display('updated_at', L('Updated At'))->listable(false); })->gridFilter(function (GridFilter $XM5aD) { $XM5aD->eq('id', L('ID')); $XM5aD->like('title', L('Title')); })->defaultOrder(array('sort', 'asc'))->canSort(true)->hookChanged(function (Form $oqTbu) { VideoUtil::clearCache(); })->title('视频'); } }

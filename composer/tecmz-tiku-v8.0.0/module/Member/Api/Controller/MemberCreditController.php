@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Member\Api\Controller; use ModStart\Core\Input\InputPackage; use ModStart\Core\Input\Response; use ModStart\Module\ModuleBaseController; use Module\Member\Auth\MemberUser; use Module\Member\Support\MemberLoginCheck; use Module\Member\Util\MemberCreditUtil; class MemberCreditController extends ModuleBaseController implements MemberLoginCheck { public function get() { return Response::generateSuccessData(array('total' => MemberCreditUtil::getTotal(MemberUser::id()))); } public function log() { goto lbELJ; gkiGx: $InfBU = array(); goto whO2B; jKNw4: $S3IJB = $tfe0V->getTrimString('type'); goto srqNo; whO2B: $tfe0V = $bz1sB->getJsonAsInput('search'); goto jKNw4; lbELJ: $bz1sB = InputPackage::buildFromInput(); goto gkiGx; ltzNe: return Response::generateSuccessPaginate($bz1sB->getPage(), $bz1sB->getPageSize(), $BfEFC); goto m9O3P; glID4: $BfEFC = MemberCreditUtil::paginateLog(MemberUser::id(), $bz1sB->getPage(), $bz1sB->getPageSize(), $InfBU); goto ltzNe; srqNo: switch ($S3IJB) { case 'income': $InfBU['whereOperate'] = array('change', '>', '0'); break; case 'payout': $InfBU['whereOperate'] = array('change', '<', '0'); break; } goto glID4; m9O3P: } }

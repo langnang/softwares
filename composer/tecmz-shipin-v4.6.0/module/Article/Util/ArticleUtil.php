@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Article\Util; use Illuminate\Support\Facades\Cache; use ModStart\Core\Dao\ModelUtil; use Module\Article\Type\ArticlePosition; class ArticleUtil { const CACHE_KEY_PREFIX = 'article:'; public static function buildRecord($XEBGu) { goto ykJ8e; fsLn0: $XEBGu['_url'] = self::url($XEBGu); goto XAl2h; XAl2h: return $XEBGu; goto GdUaB; ykJ8e: if (empty($XEBGu)) { return $XEBGu; } goto fsLn0; GdUaB: } public static function url($XEBGu) { if ($XEBGu['alias']) { return modstart_web_url('article/' . $XEBGu['alias']); } return modstart_web_url('article/' . $XEBGu['id']); } public static function get($wQ1uv) { $bgpWq = ModelUtil::get('article', $wQ1uv); return self::buildRecord($bgpWq); } public static function getByAlias($yf9T3) { return self::buildRecord(ModelUtil::get('article', array('alias' => $yf9T3))); } public static function listByPosition($aWLu8 = 'home') { $VxRpT = ModelUtil::model('article')->where(array('position' => $aWLu8))->orderBy('sort', 'asc')->get()->toArray(); return array_map(function ($qlKQK) { return self::buildRecord($qlKQK); }, $VxRpT); } public static function listByPositionWithCache($aWLu8 = 'home', $zt7Oy = 600) { return Cache::remember(self::CACHE_KEY_PREFIX . $aWLu8, $zt7Oy, function () use($aWLu8) { return self::listByPosition($aWLu8); }); } public static function clearCache() { foreach (ArticlePosition::getList() as $hBBDL => $eEo37) { Cache::forget(self::CACHE_KEY_PREFIX . $hBBDL); } } }

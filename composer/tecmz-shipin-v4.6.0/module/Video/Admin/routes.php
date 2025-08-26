@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ goto d5w2X; IFt3F: $router->match(array('post'), 'video/video_category/delete', 'VideoCategoryController@delete'); goto xejRj; aMn75: $router->match(array('get', 'post'), 'video/video_category/edit', 'VideoCategoryController@edit'); goto IFt3F; pDhRN: $router->match(array('get', 'post'), 'video/video_category', 'VideoCategoryController@index'); goto BFXBy; mBELq: $router->match(array('get', 'post'), 'video/video', 'VideoController@index'); goto ARvfK; ARvfK: $router->match(array('get', 'post'), 'video/video/add', 'VideoController@add'); goto KVNCy; afjEx: $router->match(array('get'), 'video/video/show', 'VideoController@show'); goto aUDU0; xejRj: $router->match(array('get'), 'video/video_category/show', 'VideoCategoryController@show'); goto hJ17B; KVNCy: $router->match(array('get', 'post'), 'video/video/edit', 'VideoController@edit'); goto K_YI1; K_YI1: $router->match(array('post'), 'video/video/delete', 'VideoController@delete'); goto afjEx; d5w2X: $router->match(array('get', 'post'), 'video/config/setting', 'ConfigController@setting'); goto pDhRN; BFXBy: $router->match(array('get', 'post'), 'video/video_category/add', 'VideoCategoryController@add'); goto aMn75; hJ17B: $router->match(array('post'), 'video/video_category/sort', 'VideoCategoryController@sort'); goto mBELq; aUDU0: $router->match(array('post'), 'video/video/sort', 'VideoController@sort');

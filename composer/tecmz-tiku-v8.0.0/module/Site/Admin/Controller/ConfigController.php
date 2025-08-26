@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Site\Admin\Controller; use Illuminate\Routing\Controller; use ModStart\Admin\Layout\AdminConfigBuilder; use Module\Vendor\Provider\SiteTemplate\SiteTemplateProvider; class ConfigController extends Controller { public function setting(AdminConfigBuilder $cv5kq) { goto A3CLb; VNl9X: $cv5kq->textarea('siteDescription', '网站描述'); goto ILlC1; ILlC1: $cv5kq->image('siteFavIco', '网站ICO'); goto k9Jg0; Lcovu: $cv5kq->text('siteDomain', '网站域名')->help('如 xxx.com'); goto LHSLL; Tu5qg: $cv5kq->text('siteSlogan', '网站副标题'); goto Lcovu; jsdB4: $cv5kq->text('siteName', '网站名称'); goto Tu5qg; k9Jg0: $cv5kq->layoutSeparator('模板主题'); goto GMcjn; iY3RA: $cv5kq->text('siteBeianGonganLink', '公安备案链接'); goto JEByf; GMcjn: $cv5kq->color('sitePrimaryColor', '网站主色调'); goto lt6Gs; y8JCy: $cv5kq->text('siteBeian', 'ICP备案编号'); goto J4mIl; A3CLb: $cv5kq->pageTitle('基本设置'); goto fBUpf; BxdFI: return $cv5kq->perform(); goto eZ2ij; fBUpf: $cv5kq->layoutSeparator('网站信息'); goto EWQhx; lt6Gs: $cv5kq->select('siteTemplate', '网站模板')->options(SiteTemplateProvider::map()); goto TUhpj; TUhpj: $cv5kq->layoutSeparator('备案信息'); goto y8JCy; JEByf: $cv5kq->formClass('wide'); goto BxdFI; LHSLL: $cv5kq->text('siteUrl', '网站地址')->help('如 https://xxx.com 主要用于后台任务地址转换'); goto mF4m2; J4mIl: $cv5kq->text('siteBeianGonganText', '公安备案文字'); goto iY3RA; EWQhx: $cv5kq->image('siteLogo', '网站Logo'); goto jsdB4; mF4m2: $cv5kq->text('siteKeywords', '网站关键词'); goto VNl9X; eZ2ij: } }

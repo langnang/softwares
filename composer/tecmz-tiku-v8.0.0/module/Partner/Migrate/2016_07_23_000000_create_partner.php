@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ use Illuminate\Database\Schema\Blueprint; use Illuminate\Database\Migrations\Migration; use ModStart\Core\Dao\ModelManageUtil; class CreatePartner extends Migration { public function up() { if (ModelManageUtil::hasTable('partner')) { goto JiC_w; AGiYu: if (!in_array('position', $Ij1fV)) { Schema::table('partner', function (Blueprint $PpLvp) { $PpLvp->string('position', 50)->nullable()->comment('位置'); }); } goto gUi7i; JiC_w: $Ij1fV = ModelManageUtil::listTableColumns('partner'); goto AGiYu; gUi7i: if (!in_array('sort', $Ij1fV)) { Schema::table('partner', function (Blueprint $PpLvp) { $PpLvp->integer('sort')->nullable()->comment('排序'); }); } goto PCPTW; PCPTW: } else { Schema::create('partner', function (Blueprint $PpLvp) { $PpLvp->increments('id'); $PpLvp->timestamps(); $PpLvp->string('position', 50)->nullable()->comment('位置'); $PpLvp->integer('sort')->nullable()->comment('排序'); $PpLvp->string('title', 20)->nullable()->comment('名称'); $PpLvp->string('logo', 200)->nullable()->comment('Logo'); $PpLvp->string('link', 200)->nullable()->comment('链接'); }); } } public function down() { } }

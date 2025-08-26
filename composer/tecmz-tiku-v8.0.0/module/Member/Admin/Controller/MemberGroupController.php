@@ -1,0 +1,7 @@
+<?php
+/**
+ * ------------------------ 
+ *  版权所有  www.tecmz.com
+ *  商业版本请购买正版授权使用
+ * ------------------------
+*/ namespace Module\Member\Admin\Controller; use Illuminate\Routing\Controller; use ModStart\Admin\Concern\HasAdminQuickCRUD; use ModStart\Admin\Layout\AdminCRUDBuilder; use ModStart\Form\Form; use ModStart\Grid\GridFilter; use ModStart\Support\Concern\HasFields; use Module\Member\Util\MemberGroupUtil; class MemberGroupController extends Controller { use HasAdminQuickCRUD; protected function crud(AdminCRUDBuilder $cv5kq) { $cv5kq->init('member_group')->field(function ($cv5kq) { $cv5kq->id('id', 'ID')->editable(true)->addable(true); $cv5kq->text('title', '名称'); $cv5kq->text('description', '描述'); $cv5kq->switch('isDefault', '默认')->optionsYesNo()->help(''); $cv5kq->switch('showFront', '前台显示')->optionsYesNo()->help(''); $cv5kq->display('created_at', L('Created At'))->listable(false); $cv5kq->display('updated_at', L('Updated At'))->listable(false); })->gridFilter(function (GridFilter $qM7YH) { $qM7YH->like('title', '名称'); })->enablePagination(false)->defaultOrder(array('id', 'asc'))->canSort(true)->title('会员分组')->dialogSizeSmall()->hookSaved(function (Form $Yfg4L) { MemberGroupUtil::clearCache(); }); $cv5kq->repository()->setSortColumn('id'); } }
