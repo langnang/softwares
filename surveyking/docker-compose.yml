@@ -1,0 +1,12 @@
+services:
+  surveyking:
+    image: surveyking/surveyking
+    container_name: surveyking
+    volumes:
+      - ./files:/app/files # 文件目录，存储上传的文件，冒号左侧改成自己的，下同
+      - ./logs:/app/logs # 运行日志
+      - ./db:/app/db # 数据库文件
+    ports:
+      - 0:1991 # 冒号左侧可改
+    restart: unless-stopped
+    network_mode: bridge
