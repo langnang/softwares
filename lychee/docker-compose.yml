@@ -1,0 +1,16 @@
+services:
+  lychee:
+    container_name: lychee
+    image: lycheeorg/lychee:latest
+    ports:
+      - 0:80
+    environment:
+      - TZ=Asia/Shanghai
+      - DB_CONNECTION=sqlite
+      - TRUSTED_PROXIES=*
+      - APP_FORCE_HTTPS=true
+    volumes:
+      - ./conf:/conf
+      - ./uploads:/uploads
+      - ./sym:/sym
+    restart: unless-stopped
