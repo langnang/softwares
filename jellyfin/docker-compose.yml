@@ -11,7 +11,6 @@ services:
       - ./cache:/cache
       - D:\Videos:/media
     ports:
-      - 8096:8096
-      - 8092:8092
+      - 0:8096
     restart: unless-stopped
     network_mode: bridge
