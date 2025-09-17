@@ -1,0 +1,14 @@
+*
+!.gitignore
+!.dockerignore
+!compose.yaml
+!compose.yml
+!docker-compose.yaml
+!docker-compose.yml
+!Dockerfile
+!index.js
+!package*.json
+!composer*.json
+!README*.md
+!yarn*.lock
+!nginx.conf

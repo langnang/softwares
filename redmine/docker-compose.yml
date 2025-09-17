@@ -1,0 +1,13 @@
+services:
+  redmine:
+    image: redmine:latest
+    container_name: redmine
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./sqlite:/usr/src/redmine/sqlite
+      - ./files:/usr/src/redmine/files
+      - ./plugins:/usr/src/redmine/plugins # 插件目录
+      - ./themes:/usr/src/redmine/public/themes # 主题目录
+    restart: unless-stopped
+    network_mode: bridge

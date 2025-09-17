@@ -1,0 +1,8 @@
+services:
+  gotty:
+    image: yudai/gotty
+    container_name: gotty
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+    network_mode: bridge

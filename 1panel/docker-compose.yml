@@ -1,0 +1,8 @@
+services:
+  1panel:
+    image: moelin/1panel
+    container_name: 1panel
+    ports:
+      - 8087:10086
+    restart: unless-stopped
+    network_mode: bridge

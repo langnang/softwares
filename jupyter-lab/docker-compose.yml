@@ -1,0 +1,13 @@
+services:
+  jupyter-lab:
+    image: jupyter/datascience-notebook:latest
+    container_name: jupyter-lab
+    ports:
+      - '8888:8888'
+    environment:
+      JUPYTER_ENABLE_LAB: 'yes'
+      JUPYTER_TOKEN: 'docker'
+    volumes:
+      - ./work:/home/jovyan/work
+    restart: unless-stopped
+    network_mode: bridge

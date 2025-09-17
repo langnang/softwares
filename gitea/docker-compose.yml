@@ -1,0 +1,16 @@
+services:
+  gitea:
+    image: gitea/gitea:latest
+    container_name: gitea
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+    volumes:
+      - ./data:/var/lib/gitea
+      - ./config:/etc/gitea
+    #   - /etc/timezone:/etc/timezone:ro
+    #   - /etc/localtime:/etc/localtime:ro
+    ports:
+      - '3000:3000' # HTTP access
+      - '2222:22' # SSH access
+    restart: always

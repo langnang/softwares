@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  node-server:
+    image: node:20-slim
+    container_name: node-server
+    working_dir: /app
+    volumes:
+      - ./src:/app
+      - /app/node_modules # 避免覆盖容器内的node_modules
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+    command:
+      - sh -c "npm install && npm run dev" # 自动安装依赖并启动
+    restart: unless-stopped
+    network_mode: bridge

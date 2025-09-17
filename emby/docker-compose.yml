@@ -1,0 +1,20 @@
+services:
+  emby:
+    image: emby/embyserver:latest
+    container_name: emby
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+    environment:
+      - UID=1000
+      - GID=1000
+      - GIDLIST=100,101
+    volumes:
+      - /path/to/config:/config
+      - /path/to/metadata:/metadata
+      - /path/to/media:/media
+    ports:
+      - '8096:8096'
+    network_mode: 'bridge'

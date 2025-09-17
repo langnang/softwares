@@ -1,0 +1,18 @@
+services:
+  jupyter-notebook:
+    image: jupyter/scipy-notebook:latest
+    container_name: jupyter-notebook
+    ports:
+      - '8089:8888'
+    volumes:
+      - ./work:/home/jovyan/work
+    environment:
+      - NB_UID=1000
+      - NB_GID=100
+      - CHOWN_HOME=yes
+      - CHOWN_HOME_OPTS='-R'
+      - JUPYTER_ENABLE_LAB=yes
+      - JUPYTER_TOKEN=your_token
+    command: start-notebook.sh --NotebookApp.custom_display_url=http://localhost:8888
+    restart: unless-stopped
+    network_mode: 'bridge'

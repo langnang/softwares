@@ -1,0 +1,17 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - ./config:/config
+      - ./cache:/cache
+      - D:\Videos:/media
+    ports:
+      - 8096:8096
+      - 8092:8092
+    restart: unless-stopped
+    network_mode: bridge

@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+    nginx:
+        image: nginx:latest
+        container_name: nginx-container
+        ports:
+            - "9000:80"
+            - "443:443"
+        volumes:
+            - ./src:/var/www/html
+            - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+        depends_on:
+            - php
+        networks:
+            - code-network
+
+    php:
+        image: php:latest
+        container_name: php-container
+        volumes:
+            - ./src:/var/www/html
+        networks:
+            - code-network
+
+networks:
+    code-network:
+        driver: bridge
