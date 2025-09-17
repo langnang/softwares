@@ -1,0 +1,130 @@
+services:
+  #   alist:
+  dockge:
+    image: louislam/dockge:1
+    ports:
+      - 5001:5001
+    volumes:
+      - dockge-run:/var/run
+      - dockge-data:/app/data
+      - dockge-stacks:/opt/stacks
+    environment:
+      - DOCKGE_ENABLE_CONSOLE=true
+    # restart: unless-stopped
+  emby:
+    image: emby/embyserver:latest
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+    environment:
+      - LANG=zh_CN.UTF-8
+    volumes:
+      - emby-config:/config
+      - emby-metadata:/metadata
+      - D:\Videos:/media
+    ports:
+      - "8097:8096"
+    # restart: unless-stopped
+  gitea:
+    image: gitea/gitea:latest
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+    volumes:
+      - gitea:/var/lib/gitea
+      - gitea-data:/data
+      - gitea-etc:/etc
+    ports:
+      - "3000:3000" # HTTP access
+      - "2222:22" # SSH access
+    restart: unless-stopped
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Shanghai
+    volumes:
+      - jellyfin-config:/config
+      - jellyfin-cache:/cache
+      - D:\Videos:/media
+    ports:
+      - 8096:8096
+    # restart: unless-stopped
+  jenkins:
+    image: jenkins/jenkins:latest
+    ports:
+      - 8081:8080
+      - 50000:50000
+    volumes:
+      - jenkins-home:/var/jenkins_home
+    # restart: unless-stopped
+  jupyter-lab:
+    image: jupyter/datascience-notebook:latest
+    ports:
+      - "8888:8888"
+    environment:
+      JUPYTER_ENABLE_LAB: "yes"
+      JUPYTER_TOKEN: "docker"
+    volumes:
+      - jupyter-lab-work:/home/jovyan/work
+    # restart: unless-stopped
+  #   jupyter-notebook:
+  nginx:
+    image: nginx:alpine
+    # container_name: nginx
+    ports:
+      - "80:80" # 将主机的8080端口映射到容器的80端口
+    volumes:
+      - nginx-etc:/etc/nginx
+      - nginx-logs:/var/log/nginx
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/html:/usr/share/nginx/html:ro # 挂载静态HTML文件目录
+    # restart: always
+  redmine:
+    image: redmine:latest
+    ports:
+      - "3001:3000"
+    volumes:
+      - redmine:/usr/src/redmine
+      - redmine-files:/usr/src/redmine/files
+    # restart: unless-stopped
+  typecho:
+    image: joyqi/typecho:nightly-php7.4-apache
+    # container_name: typecho
+    environment:
+      - TYPECHO_SITE_URL=https://your-domain.com
+    ports:
+      - 8001:80
+    volumes:
+      - typecho:/app
+      - typecho-usr:/app/usr
+    # restart: always
+volumes:
+  dockge-run:
+  dockge-data:
+  dockge-stacks:
+
+  emby-config:
+  emby-metadata:
+
+  gitea:
+  gitea-data:
+  gitea-etc:
+
+  jellyfin-config:
+  jellyfin-cache:
+
+  jenkins-home:
+
+  jupyter-lab-work:
+
+  nginx-etc:
+  nginx-logs:
+
+  redmine:
+  redmine-files:
+
+  typecho:
+  typecho-usr:
