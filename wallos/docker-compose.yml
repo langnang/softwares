@@ -1,0 +1,13 @@
+services:
+  wallos:
+    image: bellamy/wallos:latest
+    container_name: wallos
+    ports:
+      - "0:80"
+    volumes:
+      - ./db:/var/www/html/db          # 数据库存储
+      - ./logos:/var/www/html/images/uploads/logos  # 服务商图标
+    environment:
+      TZ: Asia/Shanghai
+    restart: unless-stopped
+    network_mode: bridge
