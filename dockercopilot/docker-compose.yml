@@ -1,0 +1,17 @@
+services:
+  dockerCopilot:
+    image: 0nlylty/dockercopilot:UGREEN #官方镜像地址
+    container_name: dockerCopilot #设置自定义的项目名称
+    environment:
+      - secretKey=a6969696969 #自己设置密码，需要大于八位且非纯数字
+      # - DOCKER_HOST=unix:///var/run/docker.sock
+      # - hubURL=https://docker.nju.edu.cn
+      - DelOldContainer=true #是否删除旧镜像，填true或false
+    ports:
+      - "0:12712"
+    # volumes:
+    # - ./docker.sock:/var/run/docker.sock
+    # - ./data:/data #自己设置路径。目前存储备份文件，未来可能存储配置文件
+    restart: unless-stopped
+    network_mode: bridge
+    privileged: true
