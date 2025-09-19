@@ -4,7 +4,7 @@ services:
     container_name: onenav
     ports:
       - "0:80"
-    volumes:
-      - "./data:/data/wwwroot/default/data"
+    # volumes:
+    #   - "./data:/data/wwwroot/default/data"
     restart: unless-stopped
     network_mode: bridge
