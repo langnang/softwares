@@ -17,7 +17,6 @@
 - mybb
 - nginx
 - nginxwebui
-- onenav
 - pocketMine-MP
 - PrestaShop
 - reader
@@ -30,6 +29,16 @@
 - wallos
 - WebFTP
 
+## 导航
+
+- onenav
+- heimdall
+- flare
+- dashy
+- homepage
+- Homarr
+- sun-panel
+
 ## 多媒体播放
 
 - Plex
@@ -41,7 +50,6 @@
 - 1Panel
 - docker copilot
 - dockge
-- sun-panel
 
 ## 云盘挂载
 
