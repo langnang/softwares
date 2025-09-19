@@ -17,9 +17,6 @@
 - mybb
 - nginx
 - nginxwebui
-- olaindex
-- oneindex
-- oneindexM
 - onenav
 - pocketMine-MP
 - PrestaShop
@@ -30,7 +27,6 @@
 - surveyking
 - teemii
 - torrserver
-- typecho
 - wallos
 - WebFTP
 
@@ -52,10 +48,16 @@
 - alist
 - cuteone
 - cuteoneP
+- olaindex
+- oneindex
+- oneindexM
 
 ## 博客
 
 - mediawiki
+- typecho
+
+## 论坛
 
 ## 数据库
 
@@ -63,3 +65,4 @@
 
 - adminer
 - phpmyadmin
+- whodb

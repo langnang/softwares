@@ -1,0 +1,10 @@
+services:
+  whodb:
+    image: clidey/whodb
+    container_name: whodb
+    ports:
+      - "0:8080"
+    # volumes:
+    #   - ./sample.db:/db/sample.db
+    restart: unless-stopped
+    network_mode: bridge
