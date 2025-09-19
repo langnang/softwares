@@ -64,6 +64,7 @@
 
 - mediawiki
 - typecho
+- wordpress
 
 ## 论坛
 
